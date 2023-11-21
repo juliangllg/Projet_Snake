@@ -17,7 +17,7 @@ struct Serpent {
 void remplir_tableau_coordonee(struct Serpent serpent){
 	int i;
 	for (i=0;i<TAILLE_MAX_SERPENT;i++){
-		serpent.coordonee[i] = -1
+		serpent.coordonee[i] = -1;
 	}
 }
 
