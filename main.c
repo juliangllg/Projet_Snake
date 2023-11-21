@@ -15,10 +15,10 @@ void main(void){
     fond();
     profondeur();
     cadrillage();
-    
+    Microsecondes();
+    EcrireTexte(20,900, "%d",1);
     Touche();
     FermerGraphique();
 
 }
 
-                

@@ -44,5 +44,4 @@ void fond (void){
 /*ajoute de la profondeur*/
 void profondeur (void){
     DessinerRectangle(22,22,1200,800);
-}
-       
+}       
