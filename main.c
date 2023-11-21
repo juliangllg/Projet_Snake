@@ -1,6 +1,7 @@
 #include <graph.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "vue.c"
 #define TAILLE_CARRE 20
 
 void main(void){
@@ -11,17 +12,8 @@ void main(void){
     InitialiserGraphique();
     CreerFenetre(20,20,1240,950);
     EffacerEcran(CouleurParComposante(255,255,255));
-    DessinerRectangle(20,20,1200,800)
-    for (i; i<40; i++){
-        for(j; j< 60; j++){
-            DessinerRectangle(x,y,TAILLE_CARRE, TAILLE_CARRE);
-            
-            x+=20;
-        }
-        x = 20;
-        y += 20;
-        j=0;
-    }
+    DessinerRectangle(20,20,1200,800);
+    cadrillage();
     Touche();
     FermerGraphique();
 
