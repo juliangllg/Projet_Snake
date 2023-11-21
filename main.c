@@ -9,12 +9,15 @@ void main(void){
     int j = 0;
     int x = 20;
     int y = 20; 
+    
     InitialiserGraphique();
     CreerFenetre(20,20,1240,950);
     fond();
-    
+    profondeur();
     cadrillage();
+    
     Touche();
     FermerGraphique();
 
 }
+
