@@ -14,24 +14,24 @@ struct Serpent {
 	short int coordonee[TAILLE_MAX_SERPENT];
 };
 
-void remplir_tableau_coordonee(struct Serpent serpent){
+void remplir_tableau_coordonee(struct Serpent *serpent){
 	int i;
 	for (i=0;i<TAILLE_MAX_SERPENT;i++){
-		serpent.coordonee[i] = -1;
-	}
+		serpent->coordonee[i] = -1;
+	}   	
 }
 
 
 
 struct Pomme {
 	char points,couleur,x,y;
-	char sprite[20];
 };
 
 struct Obstacle{
 	short int x,y;
 };
 
+/*
 void creer_terrain(){
 	int tableau[60][40];
  	int i;
@@ -43,19 +43,21 @@ void creer_terrain(){
 		nb += 1;
 		}
 	}
+	return tableau
+}
+*/
+
+void manger_pomme(struct Pomme *pomme,struct Jeu *jeu){
+	jeu->total_point += pomme->points;
 }
 
-void manger_pomme(struct Pomme pomme,struct Jeu jeu){
-	jeu.total_point += pomme.points;
+void mourir(struct Serpent *serpent,struct Jeu *jeu){
+	serpent->en_vie_bool = 0;
+	jeu->en_pause = 1;
 }
 
-void mourir(struct Serpent serpent,struct Jeu jeu){
-	serpent.en_vie_bool = 0;
-	jeu.en_pause = 1;
-}
-
-int collision(struct Serpent serpent,struct Jeu jeu,struct Obstacle obstacle){
-	if ((obstacle.x == serpent.x) || obstacle.y == serpent.y) {
+int collision(struct Serpent *serpent,struct Jeu *jeu,struct Obstacle *obstacle){
+	if ((obstacle->x == serpent->x) || obstacle->y == serpent->y) {
 		mourir(serpent,jeu);
 		return 1;
 	}
