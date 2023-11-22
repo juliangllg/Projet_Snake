@@ -10,16 +10,16 @@ struct Serpent {
 	float vitesse;
 	unsigned char en_vie_bool;
 	char couleur;
-	short int x,y;
-	short int coordonee[TAILLE_MAX_SERPENT];
+	short int x_head,y_head;
+	
 };
 
-void remplir_tableau_coordonee(struct Serpent *serpent){
+/*void remplir_tableau_coordonee(struct Serpent *serpent){
 	int i;
 	for (i=0;i<TAILLE_MAX_SERPENT;i++){
 		serpent->coordonee[i] = -1;
 	}   	
-}
+}*/
 
 
 

@@ -1,5 +1,7 @@
+#include"modele.c"
 #include<graph.h>
 #define TAILLE_CARRE 20
+
 
 /*Fais un cadrillage 60*40 (1200*800) pour le terrein de jeu.*/
 void cadrillage (void){
@@ -45,3 +47,7 @@ void fond (void){
 void profondeur (void){
     DessinerRectangle(22,22,1200,800);
 }      
+
+void intialisation(){
+    struct Serpent serpent = {3,2.0,1,CouleurParComposante(0,0,255),255,255};
+}
