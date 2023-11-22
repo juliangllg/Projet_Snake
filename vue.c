@@ -1,7 +1,7 @@
 #include<graph.h>
 #define TAILLE_CARRE 20
 
-/*Fais un cadrillage 60*40 (1240*800) pour le terrein de jeu.*/
+/*Fais un cadrillage 60*40 (1200*800) pour le terrein de jeu.*/
 void cadrillage (void){
     int x=20; int y = 20;int j = 0; int i = 0;
     for (i; i<40; i++){
@@ -44,4 +44,4 @@ void fond (void){
 /*ajoute de la profondeur*/
 void profondeur (void){
     DessinerRectangle(22,22,1200,800);
-}       
+}      
