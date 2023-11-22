@@ -56,7 +56,7 @@ void mourir(struct Serpent *serpent,struct Jeu *jeu){
 	jeu->en_pause = 1;
 }
 
-int collision(struct Serpent *serpent,struct Jeu *jeu,struct Obstacle *obstacle){
+/*int collision(struct Serpent *serpent,struct Jeu *jeu,struct Obstacle *obstacle){
 	if ((obstacle->x == serpent->x) || obstacle->y == serpent->y) {
 		mourir(serpent,jeu);
 		return 1;
@@ -64,5 +64,5 @@ int collision(struct Serpent *serpent,struct Jeu *jeu,struct Obstacle *obstacle)
 	else {
 		return 0;
 	}
-}
+}*/
 
