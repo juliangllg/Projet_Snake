@@ -21,8 +21,6 @@ struct Serpent {
 	}   	
 }*/
 
-
-
 struct Pomme {
 	char points,couleur,x,y;
 };
@@ -31,24 +29,9 @@ struct Obstacle{
 	short int x,y;
 };
 
-/*
-void creer_terrain(){
-	int tableau[60][40];
- 	int i;
-	int j;
-	int nb = 1;
-	for (i=0;i<=60;i++){
-		for (j=0;j<=40;i++){
-		tableau[i][j] = nb;
-		nb += 1;
-		}
-	}
-	return tableau
-}
-*/
-
-void manger_pomme(struct Pomme *pomme,struct Jeu *jeu){
+void manger_pomme(struct Pomme *pomme,struct Jeu *jeu,struct Serpent *serpent){
 	jeu->total_point += pomme->points;
+	serpent->taille += 1;
 }
 
 void mourir(struct Serpent *serpent,struct Jeu *jeu){
@@ -66,3 +49,18 @@ void mourir(struct Serpent *serpent,struct Jeu *jeu){
 	}
 }*/
 
+/*
+void creer_terrain(){
+	int tableau[60][40];
+ 	int i;
+	int j;
+	int nb = 1;
+	for (i=0;i<=60;i++){
+		for (j=0;j<=40;i++){
+		tableau[i][j] = nb;
+		nb += 1;
+		}
+	}
+	return tableau
+}
+*/
