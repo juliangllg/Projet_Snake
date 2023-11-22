@@ -2,10 +2,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "vue.c"
-
+#include "controlleur.c"
 
 void main(void){
-    struct Serpent serpent = {3,2.0,1,CouleurParComposante(0,0,255),610,410}; /*milieu du tableau 620 et 410*/
+    struct Serpent serpent = {3,2.0,1,CouleurParComposante(0,0,255),610,410,'d'}; /*milieu du tableau 620 et 410*/
     int i = 0;
 
     InitialiserGraphique();
@@ -14,6 +14,10 @@ void main(void){
     profondeur();
     cadrillage();
     ChoisirCouleurDessin(CouleurParComposante(255,0,0));
+    /* Tester pour les fleches directionelles peut enlever */
+    while(1){
+        controle_jeu();
+    }
     for(i;i<200;i++){
         DessinerSegment(serpent.x_head,serpent.y_head+i,serpent.x_head-i-serpent.taille*20,serpent.y_head);
         DessinerSegment(serpent.x_head+1,serpent.y_head+i,serpent.x_head-i-serpent.taille*20,serpent.y_head);

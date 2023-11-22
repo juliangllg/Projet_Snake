@@ -11,6 +11,7 @@ struct Serpent {
 	unsigned char en_vie_bool;
 	char couleur;
 	short int x_head,y_head;
+	char direction;
 	
 };
 
