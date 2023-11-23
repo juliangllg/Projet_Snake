@@ -40,15 +40,15 @@ void mourir(struct Serpent *serpent,struct Jeu *jeu){
 	jeu->en_pause = 1;
 }
 
-/*int collision(struct Serpent *serpent,struct Jeu *jeu,struct Obstacle *obstacle){
-	if ((obstacle->x == serpent->x) || obstacle->y == serpent->y) {
+int collision(struct Serpent *serpent,struct Jeu *jeu,struct Obstacle *obstacle){
+	if ((obstacle->x == serpent->x_head) || obstacle->y == serpent->y_head) {
 		mourir(serpent,jeu);
 		return 1;
 	}
 	else {
 		return 0;
 	}
-}*/
+}
 
 /*
 void creer_terrain(){

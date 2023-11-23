@@ -1,4 +1,4 @@
-#include"modele.c"
+#include"controlleur.c"
 #include<graph.h>
 #define TAILLE_CARRE 20
 
