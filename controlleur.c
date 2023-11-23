@@ -1,4 +1,5 @@
 #include "modele.c"
+
 void controle_jeu(struct Serpent *serpent){
 	if (ToucheEnAttente() != 0){
 		if (Touche() == 65362){

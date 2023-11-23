@@ -13,17 +13,25 @@ void main(void){
     cadrillage();
     ChoisirCouleurDessin(CouleurParComposante(255,0,0));
     /* Tester pour les fleches directionelles peut enlever */
+	int n = 0;
 	while (1){
 		controle_jeu(&serpent);
+		if (serpent.direction == 'd'){
+			n+=1;
+		
+		}
+		ChoisirCouleurDessin(CouleurParComposante(255,0,0));
+        RemplirRectangle(n,n,20,20);
 	}
-    for(i;i<200;i++){
-       	DessinerSegment(serpent.x_head,serpent.y_head+i,serpent.x_head-i-serpent.taille*20,serpent.y_head);
-        DessinerSegment(serpent.x_head+1,serpent.y_head+i,serpent.x_head-i-serpent.taille*20,serpent.y_head);
-        DessinerSegment(serpent.x_head+2,serpent.y_head+i,serpent.x_head-i-serpent.taille*20,serpent.y_head);
-        DessinerSegment(serpent.x_head-1,serpent.y_head+i,serpent.x_head-i-serpent.taille*20,serpent.y_head);
-        DessinerSegment(serpent.x_head-2,serpent.y_head+i,serpent.x_head-i-serpent.taille*20,serpent.y_head);
-        sleep(1);
-    }
+	
+		for(i;i<200;i++){
+			DessinerSegment(serpent.x_head,serpent.y_head+i,serpent.x_head-i-serpent.taille*20,serpent.y_head);
+			DessinerSegment(serpent.x_head+1,serpent.y_head+i,serpent.x_head-i-serpent.taille*20,serpent.y_head);
+			DessinerSegment(serpent.x_head+2,serpent.y_head+i,serpent.x_head-i-serpent.taille*20,serpent.y_head);
+			DessinerSegment(serpent.x_head-1,serpent.y_head+i,serpent.x_head-i-serpent.taille*20,serpent.y_head);
+			DessinerSegment(serpent.x_head-2,serpent.y_head+i,serpent.x_head-i-serpent.taille*20,serpent.y_head);
+			sleep(1);
+		}
     Touche();
     FermerGraphique();
 
