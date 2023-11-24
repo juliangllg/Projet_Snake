@@ -6,6 +6,7 @@ void controle_jeu(struct Serpent *serpent){
 		serpent->direction = serpent->direction;
 	}
 
+	if(Touche() != Touche()){
 		if (Touche() == 65362){
 			printf("Haut\n");
 			serpent->direction = 'h';
@@ -22,7 +23,7 @@ void controle_jeu(struct Serpent *serpent){
 			printf("Bas\n");
 			serpent->direction = 'b';
 		}
-	
+	}
 		
 	}
 	
