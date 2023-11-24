@@ -2,7 +2,7 @@
 
 void controle_jeu(struct Serpent *serpent){
 
-	if(ToucheEnAttente()){
+	if(ToucheEnAttente() == 1){
 		int touche = Touche();
 
 		if (touche== 65362){
