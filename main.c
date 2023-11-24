@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "vue.c"
+#include <unistd.h>
 void main(void){
     struct Serpent serpent = {3,2.0,1,CouleurParComposante(0,0,255),610,410,'d'}; /*milieu du tableau 620 et 410*/
     int i = 0;
@@ -14,9 +15,8 @@ void main(void){
     /* Tester pour les fleches directionelles peut enlever */
 	int x = 620; int y = 400;
 	while (1){
-        if(Touche() != Touche()){
-            controle_jeu(&serpent);
-        }
+        controle_jeu(&serpent);
+
 		
 
 		if (serpent.direction == 'd'){
@@ -44,6 +44,7 @@ void main(void){
             
 
 		}
+        usleep(150000);
         
 		
 	}

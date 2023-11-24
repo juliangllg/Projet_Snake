@@ -1,31 +1,29 @@
 #include "modele.c"
 
 void controle_jeu(struct Serpent *serpent){
-	serpent->direction = 'd';
-	if (Touche() == Touche()){
-		serpent->direction = serpent->direction;
-	}
 
-	if(Touche() != Touche()){
-		if (Touche() == 65362){
+	if(ToucheEnAttente()){
+		int touche = Touche();
+
+		if (touche== 65362){
 			printf("Haut\n");
 			serpent->direction = 'h';
 		}
-		if (Touche() == 65363){
+		if (touche == 65363){
 			printf("Droite\n");
 			serpent->direction = 'd';
 		}
-		if (Touche() == 65361){
+		if (touche == 65361){
 			printf("Gauche\n");
 			serpent->direction = 'g';
 		}
-		if (Touche() == 65364){
+		if (touche == 65364){
 			printf("Bas\n");
 			serpent->direction = 'b';
 		}
 	}
 		
-	}
+}
 	
 	
 	/*else{
