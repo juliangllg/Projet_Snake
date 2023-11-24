@@ -49,6 +49,6 @@ void profondeur (void){
 }      
 
 void intialisation(){
-    struct Serpent serpent = {3,2.0,1,CouleurParComposante(0,0,255),610,410}; /*milieu du tableau 620 et 410*/
+    struct Serpent serpent = {3,2.0,1,CouleurParComposante(255,0,0),610,410}; /*milieu du tableau 620 et 410*/
 
 }

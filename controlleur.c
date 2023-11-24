@@ -1,7 +1,11 @@
 #include "modele.c"
 
 void controle_jeu(struct Serpent *serpent){
-	if (ToucheEnAttente() != 0){
+	serpent->direction = 'd';
+	if (Touche() == Touche()){
+		serpent->direction = serpent->direction;
+	}
+
 		if (Touche() == 65362){
 			printf("Haut\n");
 			serpent->direction = 'h';
@@ -18,9 +22,12 @@ void controle_jeu(struct Serpent *serpent){
 			printf("Bas\n");
 			serpent->direction = 'b';
 		}
+	
+		
 	}
 	
-	else{
+	
+	/*else{
 		if (Touche() == 65362){
 			printf("Haut\n");
 			serpent->direction = 'h';
@@ -39,8 +46,8 @@ void controle_jeu(struct Serpent *serpent){
 			serpent->direction = 'b';
 		}
 		
-	}
-}
+	}*/
+
 
 #define XK_leftarrow                     0x08fb  /* U+2190 LEFTWARDS ARROW */ 65361
 #define XK_uparrow                       0x08fc  /* U+2191 UPWARDS ARROW */ 65362

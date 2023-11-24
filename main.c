@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "vue.c"
-
 void main(void){
     struct Serpent serpent = {3,2.0,1,CouleurParComposante(0,0,255),610,410,'d'}; /*milieu du tableau 620 et 410*/
     int i = 0;
@@ -13,15 +12,40 @@ void main(void){
     cadrillage();
     ChoisirCouleurDessin(CouleurParComposante(255,0,0));
     /* Tester pour les fleches directionelles peut enlever */
-	int n = 0;
+	int x = 620; int y = 400;
 	while (1){
-		controle_jeu(&serpent);
-		if (serpent.direction == 'd'){
-			n+=1;
+        if(Touche() != Touche()){
+            controle_jeu(&serpent);
+        }
 		
+
+		if (serpent.direction == 'd'){
+		    ChoisirCouleurDessin(serpent.couleur);
+            x+=20;
+            RemplirRectangle(x,y,20,20);
+            
 		}
-		ChoisirCouleurDessin(CouleurParComposante(255,0,0));
-        RemplirRectangle(n,n,20,20);
+        if (serpent.direction == 'g'){
+		    ChoisirCouleurDessin(serpent.couleur);
+            x-=20;
+            RemplirRectangle(x,y,20,20);
+            
+		}
+        if (serpent.direction == 'h'){
+		    ChoisirCouleurDessin(serpent.couleur);
+            y-=20;
+            RemplirRectangle(x,y,20,20);
+            
+		}
+        if (serpent.direction == 'b'){
+		    ChoisirCouleurDessin(serpent.couleur);
+            y+=20;
+            RemplirRectangle(x,y,20,20);
+            
+
+		}
+        
+		
 	}
 	
 		for(i;i<200;i++){
@@ -34,6 +58,4 @@ void main(void){
 		}
     Touche();
     FermerGraphique();
-
 }
-
