@@ -12,7 +12,7 @@ struct Serpent {
 	char couleur;
 	short int x_head,y_head;
 	char direction;
-	
+	int localisation[TAILLE_MAX_SERPENT][2];
 };
 
 /*void remplir_tableau_coordonee(struct Serpent *serpent){
