@@ -106,7 +106,7 @@ void deplacement_serpent(void){
                 serpent.localisation = {}
             }
         }*/
-        augmenter_vitesse(&serpent,100);
+        augmenter_vitesse(&serpent,1);
         printf("\t\t\tSpeed = %.3f\n",serpent.vitesse);
         usleep((int) (serpent.vitesse*100000));
         printf("%d,%d", x, y);
