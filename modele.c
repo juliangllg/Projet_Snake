@@ -30,9 +30,25 @@ struct Obstacle{
 	short int x,y;
 };
 
+void augmenter_vitesse(struct Serpent *serpent,float unite){
+	if (serpent->vitesse > 0.5){
+		serpent->vitesse -= unite/1000;  
+	}
+
+}
+
+void diminuer_vitesse(struct Serpent *serpent,float unite){
+
+		if (serpent->vitesse < 4.5){
+		serpent->vitesse += unite/1000;   
+	}
+
+}
+
 void manger_pomme(struct Pomme *pomme,struct Jeu *jeu,struct Serpent *serpent){
 	jeu->total_point += pomme->points;
 	serpent->taille += 1;
+	augmenter_vitesse(serpent,1);
 }
 
 void mourir(struct Serpent *serpent,struct Jeu *jeu){

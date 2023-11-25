@@ -7,25 +7,20 @@ void controle_jeu(struct Serpent *serpent){
 	if(ToucheEnAttente() == 1){
 		int touche = Touche();
 
-		if (touche== 65362){
-			printf("Haut\n");
+		if (touche == 65362 && serpent->direction != 'b' ){
 			serpent->direction = 'h';
 		}
-		if (touche == 65363){
-			printf("Droite\n");
+		if (touche == 65363 && serpent->direction != 'g'){
 			serpent->direction = 'd';
 		}
-		if (touche == 65361){
-			printf("Gauche\n");
+		if (touche == 65361 && serpent->direction != 'd'){
 			serpent->direction = 'g';
 		}
-		if (touche == 65364){
-			printf("Bas\n");
+		if (touche == 65364 && serpent->direction != 'h'){
 			serpent->direction = 'b';
 		}
 
 	}
-		
 }
 	
 	
