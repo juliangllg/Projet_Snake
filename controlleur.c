@@ -1,7 +1,9 @@
 #include "modele.c"
+#include "time.h"
+
 
 void controle_jeu(struct Serpent *serpent){
-
+	
 	if(ToucheEnAttente() == 1){
 		int touche = Touche();
 
@@ -21,6 +23,7 @@ void controle_jeu(struct Serpent *serpent){
 			printf("Bas\n");
 			serpent->direction = 'b';
 		}
+
 	}
 		
 }
