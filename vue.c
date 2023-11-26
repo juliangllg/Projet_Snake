@@ -3,7 +3,7 @@
 #include <time.h>
 #include <unistd.h>
 #define TAILLE_CARRE 20
-
+#define CONSTANTE_VITESSE 100000
 
 /*Fais un cadrillage 60*40 (1200*800) pour le terrein de jeu.*/
 void cadrillage (void){
@@ -62,9 +62,9 @@ void initialisation(void){
 
 int x = 620; int y = 400; int boucle_jeu = 1;
 
-void deplacement_serpent(void){ 
+void deplacement_serpent(struct Jeu *jeu){ 
         struct Serpent serpent = {3,2.0,1,CouleurParComposante(0,0,255),610,410,'d',{{x,y}}}; /*milieu du tableau 620 et 410*/
-
+        struct Pomme pomme = {1,'r',0,0};
         while (boucle_jeu && serpent.en_vie_bool == 1){
         controle_jeu(&serpent);
             
@@ -76,19 +76,16 @@ void deplacement_serpent(void){
             
 		}
         if (serpent.direction == 'g'){
-		    ChoisirCouleurDessin(serpent.couleur);
             x-=20;
             RemplirRectangle(x,y,TAILLE_CARRE, TAILLE_CARRE);
             /*serpent.localisation += {{x,y}};*/
 		}
         if (serpent.direction == 'h'){
-		    ChoisirCouleurDessin(serpent.couleur);
             y-=20;
             RemplirRectangle(x,y,TAILLE_CARRE, TAILLE_CARRE);
             /*serpent.localisation += {{x,y}};*/
 		}
         if (serpent.direction == 'b'){
-		    ChoisirCouleurDessin(serpent.couleur);
             y+=20;
             RemplirRectangle(x,y,TAILLE_CARRE, TAILLE_CARRE);
             /*serpent.localisation += {{x,y}};*/
@@ -106,10 +103,10 @@ void deplacement_serpent(void){
                 serpent.localisation = {}
             }
         }*/
-        augmenter_vitesse(&serpent,1);
-        printf("\t\t\tSpeed = %.3f\n",serpent.vitesse);
-        usleep((int) (serpent.vitesse*100000));
-        printf("%d,%d", x, y);
+        manger_pomme(&pomme,&jeu,&serpent);
+        printf("\t\t\t\tSpeed = %.3f\n",serpent.vitesse);
+        printf("%d,%d\n", x, y);
+        usleep((int) (serpent.vitesse*CONSTANTE_VITESSE));
     }
 	
 }

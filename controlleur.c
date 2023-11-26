@@ -7,16 +7,16 @@ void controle_jeu(struct Serpent *serpent){
 	if(ToucheEnAttente() == 1){
 		int touche = Touche();
 
-		if (touche == 65362 && serpent->direction != 'b' ){
+		if (touche == 65362 && serpent->direction != 'b' && serpent->direction != 'h'){
 			serpent->direction = 'h';
 		}
-		if (touche == 65363 && serpent->direction != 'g'){
+		if (touche == 65363 && serpent->direction != 'g' && serpent->direction != 'd'){
 			serpent->direction = 'd';
 		}
-		if (touche == 65361 && serpent->direction != 'd'){
+		if (touche == 65361 && serpent->direction != 'd' && serpent->direction != 'g'){
 			serpent->direction = 'g';
 		}
-		if (touche == 65364 && serpent->direction != 'h'){
+		if (touche == 65364 && serpent->direction != 'h' && serpent->direction != 'b'){
 			serpent->direction = 'b';
 		}
 
