@@ -4,7 +4,7 @@
 
 void controle_jeu(struct Serpent *serpent){
 	
-	if(ToucheEnAttente() == 1){
+	while(ToucheEnAttente()){
 		int touche = Touche();
 
 		if (touche == 65362 && serpent->direction != 'b' && serpent->direction != 'h'){
