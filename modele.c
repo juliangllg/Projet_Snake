@@ -1,7 +1,8 @@
 #define TAILLE_MAX_SERPENT 50 
 
 struct Jeu{
-	short int total_point,temps;
+	short int total_point;
+	short int temps;
 	unsigned char en_pause;
 };
 
@@ -47,7 +48,13 @@ void diminuer_vitesse(struct Serpent *serpent,float unite){
 void manger_pomme(struct Pomme *pomme,struct Jeu *jeu,struct Serpent *serpent){
 	jeu->total_point += pomme->points;
 	serpent->taille += 1;
-	augmenter_vitesse(serpent,1);
+	if (pomme->couleur == 'r'){
+		augmenter_vitesse(serpent,100);
+	}
+	if (pomme->couleur == 'o'){
+		diminuer_vitesse(serpent,100);
+	}
+
 }
 
 void mourir(struct Serpent *serpent,struct Jeu *jeu){
