@@ -13,7 +13,7 @@ void controle_jeu(struct Serpent *serpent){
 		if (touche == 65363 && serpent->direction != 'g' ){
 			serpent->direction = 'd';
 		}
-		if (touche == 65361 && serpent->direction != 'd' ){
+		if (touche == 65361 && serpent->direction != 'd'){
 			serpent->direction = 'g';
 		}
 		if (touche == 65364 && serpent->direction != 'h'){
