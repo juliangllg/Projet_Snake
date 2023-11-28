@@ -51,7 +51,7 @@ void initialisation(void){
     }
 int x = 620; int y = 400; int boucle_jeu = 1;
 void deplacement_serpent(struct Jeu *jeu){ 
-        struct Serpent serpent = {3,1.5,1,CouleurParComposante(0,0,255),610,410,'d',x,y}; /*milieu du tableau 620 et 410*/
+        struct Serpent serpent = {3,2.0,1,CouleurParComposante(0,0,255),610,410,'d',x,y}; /*milieu du tableau 620 et 410*/
         struct Pomme pomme = {1,'r',0,0};
         while (boucle_jeu && serpent.en_vie_bool == 1){
         controle_jeu(&serpent);

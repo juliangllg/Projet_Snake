@@ -9,41 +9,24 @@ void controle_jeu(struct Serpent *serpent){
 
 		if (touche == 65362 && serpent->direction != 'b' ){
 			serpent->direction = 'h';
+			break;
 		}
 		if (touche == 65363 && serpent->direction != 'g' ){
 			serpent->direction = 'd';
+			break;
 		}
 		if (touche == 65361 && serpent->direction != 'd'){
 			serpent->direction = 'g';
+			break;
 		}
 		if (touche == 65364 && serpent->direction != 'h'){
 			serpent->direction = 'b';
+			break;
 		}
-
 	}
 }
 	
 	
-	/*else{
-		if (Touche() == 65362){
-			printf("Haut\n");
-			serpent->direction = 'h';
-		}
-		if (Touche() == 65363){
-			printf("Droite\n");
-			serpent->direction = 'd';
-		
-		}
-		if (Touche() == 65361){
-			printf("Gauche\n");
-			serpent->direction = 'g';
-		}
-		if (Touche() == 65364){
-			printf("Bas\n");
-			serpent->direction = 'b';
-		}
-		
-	}*/
 
 
 #define XK_leftarrow                     0x08fb  /* U+2190 LEFTWARDS ARROW */ 65361
