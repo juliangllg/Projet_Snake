@@ -89,18 +89,6 @@ void deplacement_serpent(struct Jeu *jeu){
                 RemplirRectangle(x,y,TAILLE_CARRE, TAILLE_CARRE);
                 localisation_serpent[0][0] = x;
                 localisation_serpent[0][1] = y;
-            int var = 0;
-            for (i=serpent.taille;i>0;i--){
-                localisation_serpent[i][0] = localisation_serpent[i-1][0];
-                localisation_serpent[i][1] = localisation_serpent[i-1][1];
-            }
-            i = 1;
-            for(i;i<TAILLE_MAX_SERPENT;i++){
-                if(localisation_serpent[0][0]==localisation_serpent[i][0] || 
-                localisation_serpent[0][1]==localisation_serpent[i][1]){
-                    game_over();
-                }
-            }
             
             }
             if (x<20 || x>1200 || y<20 || y>800){
@@ -110,7 +98,7 @@ void deplacement_serpent(struct Jeu *jeu){
                 game_over();
             }
             int j=0;
-            augmenter_vitesse(&serpent,100);
+            augmenter_vitesse(&serpent,1);
             printf("\t\t\tSpeed = %.3f\n",serpent.vitesse);
             usleep((int) (serpent.vitesse*100000));
             for (j;j<serpent.taille;j++){
