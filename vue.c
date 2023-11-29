@@ -42,46 +42,57 @@ void fond (void){
 void localisation_serpent(void){
     
 }
+
 void game_over(void){
     ChoisirCouleurDessin(CouleurParComposante(255,255,255));
     EcrireTexte(620,875, "Game Over", 2);
+    FermerGraphique();
 }
 void initialisation(void){
-    struct Serpent serpent = {3,2.0,1,CouleurParComposante(0,0,255),610,410,'d'}; /*milieu du tableau 620 et 410*/
+    struct Serpent serpent = {4,2.0,1,CouleurParComposante(0,0,255),610,410,'d'}; /*milieu du tableau 620 et 410*/
     }
 int x = 620; int y = 400; int boucle_jeu = 1;
 void deplacement_serpent(struct Jeu *jeu){ 
-        struct Serpent serpent = {3,1.25,1,CouleurParComposante(0,0,255),610,410,'d',x,y}; /*milieu du tableau 620 et 410*/
+        struct Serpent serpent = {10,1.25,1,CouleurParComposante(0,0,255),610,410,'d',x,y}; /*milieu du tableau 620 et 410*/
         struct Pomme pomme = {1,'r',0,0};
+        int localisation[10][2];
+        localisation[0][0] = 620;
+        localisation[0][1] = 400;
+        int i;
         while (boucle_jeu && serpent.en_vie_bool == 1){
+        ChoisirCouleurDessin(CouleurParComposante(0,0,255));
+
         controle_jeu(&serpent);
-            
 		if (serpent.direction == 'd'){
-		    ChoisirCouleurDessin(CouleurParComposante(0,0,255));
             x+=20;
-            RemplirRectangle(x,y,TAILLE_CARRE,TAILLE_CARRE);
+            localisation[0][0] = x ;
             /*serpent.localisation += {{x,y}};*/
             
 		}
         if (serpent.direction == 'g'){
             x-=20;
-            RemplirRectangle(x,y,TAILLE_CARRE, TAILLE_CARRE);
+            localisation[0][0] = x ;
+
             /*serpent.localisation += {{x,y}};*/
 		}
         if (serpent.direction == 'h'){
             y-=20;
-            RemplirRectangle(x,y,TAILLE_CARRE, TAILLE_CARRE);
+            localisation[0][1] = y ;
+
+
             /*serpent.localisation += {{x,y}};*/
 		}
         if (serpent.direction == 'b'){
             y+=20;
-            RemplirRectangle(x,y,TAILLE_CARRE, TAILLE_CARRE);
+            localisation[0][1] = y ;
+
+
             /*serpent.localisation += {{x,y}};*/
         }
-        if (x<20 || x>1200 || y<20 || y>800){
+        if (x<20 || x>1200 || y<20 || y>800 ){
             serpent.en_vie_bool = 0;
             ChoisirCouleurDessin(CouleurParComposante(255,0,0));
-            RemplirRectangle(x,y,TAILLE_CARRE, TAILLE_CARRE );
+
             game_over();
         }
         /*int i=0;
@@ -90,9 +101,34 @@ void deplacement_serpent(struct Jeu *jeu){
                 serpent.localisation = {}
             }
         }*/
-        printf("\t\t\t\tSpeed = %.3f\n",serpent.vitesse);
-        printf("%d,%d\n", x, y);
+
+
+        for (i=1;i<serpent.taille;i++){
+            if (localisation[0][0] == localisation[i][0] && localisation[0][1] == localisation[i][1]){
+                game_over();
+                break;
+            }
+        }
+        for(i=0;i<serpent.taille;i++){
+        printf("{[%d,%d]}--",localisation[i][0],localisation[i][1]);
+        
+        }
+        printf("\n");
+        for (i=serpent.taille;i>0;i--){
+            localisation[i][0] = localisation[i-1][0];
+            localisation[i][1] = localisation[i-1][1];
+        }
+        for (i=0;i<serpent.taille;i++){
+            RemplirRectangle(localisation[i][0],localisation[i][1],TAILLE_CARRE, TAILLE_CARRE );
+        }
+
+        
+        /*
+        printf("\t\t\t\t\t\t\t\tSpeed = %.3f\n",serpent.vitesse);
+        printf("%d,%d\n",localisation[0][0],localisation[0][1]);
+        */
         usleep((int) (serpent.vitesse*CONSTANTE_VITESSE));
+        cadrillage();
     }
 	
 }
