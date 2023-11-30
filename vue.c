@@ -2,8 +2,15 @@
 #include<graph.h>
 #include <time.h>
 #include <unistd.h>
+#define Y_POMME 40
+#define X_POMME 60
 #define TAILLE_CARRE 20
 #define CONSTANTE_VITESSE 100000
+
+
+
+
+
 /*Fais un cadrillage 60*40 (1200*800) pour le terrein de jeu.*/
 void cadrillage (void){
     int x=20; int y = 20;int j = 0; int i = 0;
@@ -50,7 +57,7 @@ void affiche_pomme(){
     int num_pomme;
     int rose = ChargerSprite("images/Pomme_rose.png");
     for (num_pomme=0;num_pomme<5;num_pomme++){
-        AfficherSprite(rose, 640, 50);
+        AfficherSprite(rose, rand()%X_POMME*20, rand()%Y_POMME*20);
     }
 }
 void initialisation(void){
@@ -64,8 +71,7 @@ void deplacement_serpent(struct Jeu *jeu){
                                   1,
                                   CouleurParComposante(0,0,255),
                                   610,410,
-                                  'd',
-                                  x,y}; /*Taille,Vitesse*/
+                                  'd',}; /*Taille,Vitesse*/
         struct Pomme pomme = {1,'r',0,0};
         int localisation[serpent.taille][2];
     
@@ -83,28 +89,28 @@ void deplacement_serpent(struct Jeu *jeu){
 		if (serpent.direction == 'd'){
             x+=20;
             localisation[0][0] = x ;
-            /*serpent.localisation += {{x,y}};*/
+      
             
 		}
         if (serpent.direction == 'g'){
             x-=20;
             localisation[0][0] = x ;
 
-            /*serpent.localisation += {{x,y}};*/
+         
 		}
         if (serpent.direction == 'h'){
             y-=20;
             localisation[0][1] = y ;
 
 
-            /*serpent.localisation += {{x,y}};*/
+  
 		}
         if (serpent.direction == 'b'){
             y+=20;
             localisation[0][1] = y ;
 
 
-            /*serpent.localisation += {{x,y}};*/
+    
         }
         if (x<20 || x>1200 || y<20 || y>800 ){
             serpent.en_vie_bool = 0;
@@ -112,12 +118,6 @@ void deplacement_serpent(struct Jeu *jeu){
 
             game_over();
         }
-        /*int i=0;
-        for(i;i<TAILLE_MAX_SERPENT;i++){
-            if (i == TAILLE_MAX_SERPENT){
-                serpent.localisation = {}
-            }
-        }*/
 
 
         for (i=1;i<serpent.taille;i++){
