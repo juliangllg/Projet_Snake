@@ -39,9 +39,6 @@ void cadrillage (void){
 void fond (void){
     EffacerEcran(CouleurParComposante(100,100,100));
 }
-void localisation_serpent(void){
-    
-}
 
 void game_over(void){
     ChoisirCouleurDessin(CouleurParComposante(255,255,255));
@@ -49,11 +46,19 @@ void game_over(void){
     FermerGraphique();
 }
 
+void affiche_pomme(){
+    int num_pomme;
+    int rose = ChargerSprite("images/Pomme_rose.png");
+    for (num_pomme=0;num_pomme<5;num_pomme++){
+        AfficherSprite(rose, 640, 50);
+    }
+}
 void initialisation(void){
     struct Serpent serpent = {4,2.0,1,CouleurParComposante(0,0,255),610,410,'d'}; /*milieu du tableau 620 et 410*/
     }
 int x = 620; int y = 400; int boucle_jeu = 1;
 void deplacement_serpent(struct Jeu *jeu){ 
+
         struct Serpent serpent = {10,
                                   1.25,
                                   1,
@@ -70,6 +75,8 @@ void deplacement_serpent(struct Jeu *jeu){
         int i;
         int n;
         while (boucle_jeu && serpent.en_vie_bool == 1){
+
+         affiche_pomme();
         ChoisirCouleurDessin(CouleurParComposante(0,0,255));
 
         controle_jeu(&serpent);

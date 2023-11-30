@@ -15,6 +15,7 @@ struct Serpent {
 	char direction;
 };
 
+
 /*void remplir_tableau_coordonee(struct Serpent *serpent){
 	int i;
 	for (i=0;i<TAILLE_MAX_SERPENT;i++){
@@ -24,6 +25,10 @@ struct Serpent {
 
 struct Pomme {
 	char points,couleur,x,y;
+};
+
+struct Liste_pommes{
+	int liste[5];
 };
 
 struct Obstacle{
