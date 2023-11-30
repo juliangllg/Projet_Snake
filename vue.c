@@ -53,13 +53,28 @@ void game_over(void){
     FermerGraphique();
 }
 
+void tableau_pomme(void){
+    
+    
+}
+
+
 void affiche_pomme(){
+    tableau_pomme();
     int num_pomme;
+    int tab_pomme[5][2];
+    int i;
     int rose = ChargerSprite("images/Pomme_rose.png");
     for (num_pomme=0;num_pomme<5;num_pomme++){
-        AfficherSprite(rose, rand()%X_POMME*20, rand()%Y_POMME*20);
+        tab_pomme[num_pomme][0] = rand()%X_POMME*20+20;
+        tab_pomme[num_pomme][1] = rand()%Y_POMME*20+20;
     }
+        for(i = 0; i<5; i++){
+        AfficherSprite(rose,tab_pomme[i][0],tab_pomme[i][1]);
+        }
 }
+
+
 void initialisation(void){
     struct Serpent serpent = {4,2.0,1,CouleurParComposante(0,0,255),610,410,'d'}; /*milieu du tableau 620 et 410*/
     }
@@ -77,12 +92,12 @@ void deplacement_serpent(struct Jeu *jeu){
     
         localisation[0][0] = 620;
         localisation[0][1] = 400;
-    
+        
         int i;
         int n;
-        while (boucle_jeu && serpent.en_vie_bool == 1){
-
-         affiche_pomme();
+        while (boucle_jeu && serpent.en_vie_bool){
+        affiche_pomme();
+         
         ChoisirCouleurDessin(CouleurParComposante(0,0,255));
 
         controle_jeu(&serpent);
