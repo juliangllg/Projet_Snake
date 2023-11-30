@@ -53,14 +53,14 @@ void game_over(void){
     FermerGraphique();
 }
 
-void tableau_pomme(void){
+int tableau_pomme(void){
     
     
 }
 
 
 void affiche_pomme(){
-    tableau_pomme();
+    tableau_pomme();    
     int num_pomme;
     int tab_pomme[5][2];
     int i;
@@ -92,11 +92,11 @@ void deplacement_serpent(struct Jeu *jeu){
     
         localisation[0][0] = 620;
         localisation[0][1] = 400;
-        
-        int i;
-        int n;
-        while (boucle_jeu && serpent.en_vie_bool){
         affiche_pomme();
+        int i;
+        int n; 
+        while (boucle_jeu && serpent.en_vie_bool){
+        
          
         ChoisirCouleurDessin(CouleurParComposante(0,0,255));
 
