@@ -9,7 +9,12 @@
 
 
 
-
+int num_pomme;
+int tab_pomme[5][2];
+for(num_pomme=0; num_pomme<5; num_pomme++){
+        tab_pomme[num_pomme][0] = rand()%X_POMME*20+20;
+        tab_pomme[num_pomme][1] = rand()%Y_POMME*20+20;
+    }
 
 /*Fais un cadrillage 60*40 (1200*800) pour le terrein de jeu.*/
 void cadrillage (void){
@@ -50,7 +55,6 @@ void fond (void){
 void game_over(void){
     ChoisirCouleurDessin(CouleurParComposante(255,255,255));
     EcrireTexte(620,875, "Game Over", 2);
-    FermerGraphique();
 }
 
 int tableau_pomme(void){
@@ -59,17 +63,11 @@ int tableau_pomme(void){
 }
 
 
-void affiche_pomme(){
-    tableau_pomme();    
-    int num_pomme;
-    int tab_pomme[5][2];
+
+void affiche_pomme(){   
     int i;
     int rose = ChargerSprite("images/Pomme_rose.png");
-    for (num_pomme=0;num_pomme<5;num_pomme++){
-        tab_pomme[num_pomme][0] = rand()%X_POMME*20+20;
-        tab_pomme[num_pomme][1] = rand()%Y_POMME*20+20;
-    }
-        for(i = 0; i<5; i++){
+    for(i = 0; i<5; i++){
         AfficherSprite(rose,tab_pomme[i][0],tab_pomme[i][1]);
         }
 }
@@ -94,8 +92,10 @@ void deplacement_serpent(struct Jeu *jeu){
         localisation[0][1] = 400;
         affiche_pomme();
         int i;
-        int n; 
+        int n;
+        int j;
         while (boucle_jeu && serpent.en_vie_bool){
+        
         
          
         ChoisirCouleurDessin(CouleurParComposante(0,0,255));
@@ -127,6 +127,8 @@ void deplacement_serpent(struct Jeu *jeu){
 
     
         }
+
+
         if (x<20 || x>1200 || y<20 || y>800 ){
             serpent.en_vie_bool = 0;
             ChoisirCouleurDessin(CouleurParComposante(255,0,0));
@@ -134,6 +136,14 @@ void deplacement_serpent(struct Jeu *jeu){
             game_over();
         }
 
+
+        for(j; j<5; j++){
+            if (localisation[0][0] == tab_pomme[j][0] && localisation[0][1] == tab_pomme[j][1]){
+                serpent.taille += 1;
+                tab_pomme[j][0] = rand()%X_POMME*20+20;
+                tab_pomme[j][1] = rand()%Y_POMME*20+20;
+            }
+        }
 
         for (i=1;i<serpent.taille;i++){
             if (localisation[0][0] == localisation[i][0] && localisation[0][1] == localisation[i][1]){
