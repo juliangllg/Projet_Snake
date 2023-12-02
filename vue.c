@@ -9,12 +9,7 @@
 
 
 
-int num_pomme;
-int tab_pomme[5][2];
-for(num_pomme=0; num_pomme<5; num_pomme++){
-        tab_pomme[num_pomme][0] = rand()%X_POMME*20+20;
-        tab_pomme[num_pomme][1] = rand()%Y_POMME*20+20;
-    }
+
 
 /*Fais un cadrillage 60*40 (1200*800) pour le terrein de jeu.*/
 void cadrillage (void){
@@ -57,25 +52,31 @@ void game_over(void){
     EcrireTexte(620,875, "Game Over", 2);
 }
 
-int tableau_pomme(void){
-    
-    
+
+int tableau_pomme(int tableau[5][2]){
+    int num_pomme;
+    for(num_pomme=0; num_pomme<5; num_pomme++){
+            tableau[num_pomme][0] = rand()%X_POMME*20+20;
+            tableau[num_pomme][1] = rand()%Y_POMME*20+20;
+        }
+    return tableau[5][2];
 }
 
-
-
-void affiche_pomme(){   
+void affiche_pomme(int tableau[5][2]){   
     int i;
     int rose = ChargerSprite("images/Pomme_rose.png");
+    
     for(i = 0; i<5; i++){
-        AfficherSprite(rose,tab_pomme[i][0],tab_pomme[i][1]);
+        AfficherSprite(rose,tableau[i][0],tableau[i][1]);
         }
+    
 }
 
 
 void initialisation(void){
     struct Serpent serpent = {4,2.0,1,CouleurParComposante(0,0,255),610,410,'d'}; /*milieu du tableau 620 et 410*/
     }
+    
 int x = 620; int y = 400; int boucle_jeu = 1;
 void deplacement_serpent(struct Jeu *jeu){ 
 
@@ -87,10 +88,20 @@ void deplacement_serpent(struct Jeu *jeu){
                                   'd',}; /*Taille,Vitesse*/
         struct Pomme pomme = {1,'r',0,0};
         int localisation[serpent.taille][2];
+
+    
+
     
         localisation[0][0] = 620;
         localisation[0][1] = 400;
-        affiche_pomme();
+        
+        int tab_pomme[5][2];
+        int num_pomme;
+        for(num_pomme=0; num_pomme<5; num_pomme++){
+            tab_pomme[num_pomme][0] = rand()%X_POMME*20+20;
+            tab_pomme[num_pomme][1] = rand()%Y_POMME*20+20;
+        }
+        
         int i;
         int n;
         int j;
@@ -104,7 +115,7 @@ void deplacement_serpent(struct Jeu *jeu){
 		if (serpent.direction == 'd'){
             x+=20;
             localisation[0][0] = x ;
-      
+        affiche_pomme(tab_pomme);
             
 		}
         if (serpent.direction == 'g'){
