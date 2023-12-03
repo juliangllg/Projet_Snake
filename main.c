@@ -1,7 +1,8 @@
 #include <graph.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "vue.c"
+#include "vue.h"
+#include "modele.h"
 
 void main(void){
     int i = 0;

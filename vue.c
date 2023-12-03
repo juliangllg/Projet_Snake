@@ -1,7 +1,9 @@
-#include"controlleur.c"
+#include"controlleur.h"
+#include"modele.h"
 #include<graph.h>
 #include <time.h>
 #include <unistd.h>
+#include "vue.h"
 #define Y_POMME 40
 #define X_POMME 60
 #define TAILLE_CARRE 20

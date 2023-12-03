@@ -1,39 +1,7 @@
 #define TAILLE_MAX_SERPENT 50 
-
-struct Jeu{
-	short int total_point;
-	short int temps;
-	unsigned char en_pause;
-};
-
-struct Serpent {
-	short int taille;
-	float vitesse;
-	unsigned char en_vie_bool;
-	char couleur;
-	short int x_head,y_head;
-	char direction;
-};
+#include "modele.h"
 
 
-/*void remplir_tableau_coordonee(struct Serpent *serpent){
-	int i;
-	for (i=0;i<TAILLE_MAX_SERPENT;i++){
-		serpent->coordonee[i] = -1;
-	}   	
-}*/
-
-struct Pomme {
-	char points,couleur,x,y;
-};
-
-struct Liste_pommes{
-	int liste[5];
-};
-
-struct Obstacle{
-	short int x,y;
-};
 
 void augmenter_vitesse(struct Serpent *serpent,float unite){
 	if (serpent->vitesse > 0.5){

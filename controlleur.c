@@ -1,6 +1,6 @@
-#include "modele.c"
+#include "modele.h"
 #include "time.h"
-
+#include "controlleur.h"
 
 #define XK_leftarrow                     0x08fb  /* U+2190 LEFTWARDS ARROW */ 
 #define XK_uparrow                       0x08fc  /* U+2191 UPWARDS ARROW */ 
