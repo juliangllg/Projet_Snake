@@ -56,11 +56,6 @@ void game_over(void){
     EcrireTexte(620,875, "Game Over", 2);
 }
 
-int tableau_pomme(void){
-    
-    
-}
-
 
 
 void affiche_pomme(){   
@@ -79,6 +74,7 @@ void initialisation(void){
 
 int x = 620; int y = 400; int boucle_jeu = 1;
 void deplacement_serpent(struct Jeu *jeu){ 
+    srand(time(NULL))
     for(num_pomme=0; num_pomme<5; num_pomme++){
             tab_pomme[num_pomme][0] = rand()%X_POMME*20+20;
             tab_pomme[num_pomme][1] = rand()%Y_POMME*20+20;
@@ -95,7 +91,7 @@ void deplacement_serpent(struct Jeu *jeu){
 
         localisation = malloc((serpent.taille*2)*sizeof(int));
 
-        affiche_pomme();
+        
         int i;
         int n = 1;
         int j;
@@ -109,7 +105,7 @@ void deplacement_serpent(struct Jeu *jeu){
             *(localisation+i) = *(localisation+(i-2));
         }   
 
-
+        affiche_pomme();
         
          
         ChoisirCouleurDessin(CouleurParComposante(0,0,255));
@@ -146,8 +142,12 @@ void deplacement_serpent(struct Jeu *jeu){
         if (x<20 || x>1200 || y<20 || y>800 ){
             serpent.en_vie_bool = 0;
             ChoisirCouleurDessin(CouleurParComposante(255,0,0));
-
+            RemplirRectangle(*(localisation+0), *(localisation+1),TAILLE_CARRE,TAILLE_CARRE);
             game_over();
+            break;
+            
+
+            
         }
 
         printf("\n");
@@ -167,8 +167,11 @@ void deplacement_serpent(struct Jeu *jeu){
 
         for (i=2;i<(serpent.taille*2)-1;i+=2){
             if (*(localisation+0) == *(localisation+i) && *(localisation+1) == *(localisation+i+1)){
+                ChoisirCouleurDessin(CouleurParComposante(255,0,0));
+                RemplirRectangle(*(localisation+0), *(localisation+1),TAILLE_CARRE,TAILLE_CARRE);
                 game_over();
-
+                break;
+                
             }
         }
 
@@ -185,7 +188,7 @@ void deplacement_serpent(struct Jeu *jeu){
 
 
 
-        if (n == 0){
+        if (n == 0 && !(*(localisation+0)== tab_pomme[j][0] && *(localisation+1) == tab_pomme[j][1])){
             n = 1;
             ChoisirCouleurDessin(CouleurParComposante(0,220,0));  
         }
