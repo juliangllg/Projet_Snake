@@ -1,20 +1,24 @@
 # Variable
-CFLAGS = -ansi -pedantic 
+CFLAGS = -ansi -pedantic -W 
 OFILES = main.o vue.o modele.o controlleur.o
 EXEC = jouer
 
 # Compilation du ficher executable "jouer.exe"
 $(EXEC) : $(OFILES)
-	gcc $(CFLAGS) -o $(EXEC)  $(OFILES) -lgraph	
+	gcc  -o $(EXEC)  $(OFILES) $(CFLAGS) -lgraph	
+
 
 controlleur.o : controlleur.c  controlleur.h 
-	gcc $(CFLAGS) -c controlleur.c -lgraph
+	gcc -c controlleur.c $(CFLAGS) -lgraph
 
 modele.o : modele.c modele.h 
-	gcc $(CFLAGS) -c modele.c -lgraph
+	gcc -c modele.c $(CFLAGS) -lgraph
 
 vue.o : vue.c vue.h
-	gcc $(CFLAGS) -c vue.c -lgraph
+	gcc -c vue.c $(CFLAGS) -lgraph
 
 main.o : main.c vue.h modele.h
-	gcc $(CFLAGS) -c main.c -lgraph
+	gcc -c main.c $(CFLAGS) -lgraph
+
+clear:
+	rm -rf *.o 

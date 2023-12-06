@@ -1,9 +1,11 @@
 #include"controlleur.h"
 #include"modele.h"
+#include <stdlib.h>
 #include<graph.h>
 #include <time.h>
 #include <unistd.h>
 #include "vue.h"
+#include <stdio.h>
 #define Y_POMME 40
 #define X_POMME 60
 #define TAILLE_CARRE 20
@@ -68,13 +70,13 @@ void affiche_pomme(){
 
 
 void initialisation(void){
-    struct Serpent serpent = {4,2.0,1,CouleurParComposante(0,0,255),610,410,'d'}; /*milieu du tableau 620 et 410*/
+    struct Serpent serpent = {4,2.0,1,'b',610,410,'d'}; /*milieu du tableau 620 et 410*/
     }
 
 
 int x = 620; int y = 400; int boucle_jeu = 1;
 void deplacement_serpent(struct Jeu *jeu){ 
-    srand(time(NULL))
+    srand(time(NULL));
     for(num_pomme=0; num_pomme<5; num_pomme++){
             tab_pomme[num_pomme][0] = rand()%X_POMME*20+20;
             tab_pomme[num_pomme][1] = rand()%Y_POMME*20+20;
@@ -144,18 +146,18 @@ void deplacement_serpent(struct Jeu *jeu){
             ChoisirCouleurDessin(CouleurParComposante(255,0,0));
             RemplirRectangle(*(localisation+0), *(localisation+1),TAILLE_CARRE,TAILLE_CARRE);
             game_over();
-            break;
+            free(localisation);
+            return;
             
 
             
         }
 
-        printf("\n");
+
         for(j=0; j<5; j++){
 
             if (*(localisation+0)== tab_pomme[j][0] && *(localisation+1) == tab_pomme[j][1]){
                 serpent.taille += 1;
-        
                 localisation = realloc(localisation,serpent.taille*2*sizeof(int));
                 tab_pomme[j][0] = rand()%X_POMME*20+20;
                 tab_pomme[j][1] = rand()%Y_POMME*20+20;
@@ -170,16 +172,14 @@ void deplacement_serpent(struct Jeu *jeu){
                 ChoisirCouleurDessin(CouleurParComposante(255,0,0));
                 RemplirRectangle(*(localisation+0), *(localisation+1),TAILLE_CARRE,TAILLE_CARRE);
                 game_over();
-                break;
+                free(localisation);
+                return;
                 
             }
         }
 
 
-        for (i=0;i<(serpent.taille*2)-2;i+=2){
-            printf("--[%d,%d]--",*(localisation+i),*(localisation+i+1));
-        }
-
+  
 
 
         for (i=0;i<(serpent.taille*2)-1;i+=2){
@@ -201,7 +201,7 @@ void deplacement_serpent(struct Jeu *jeu){
 
         ChoisirCouleurDessin(CouleurParComposante(0,0,0));
         DessinerRectangle(*(localisation+((serpent.taille*2)-1)-1),*(localisation+((serpent.taille*2)-1)),TAILLE_CARRE , TAILLE_CARRE );
-        DessinerRectangle(*(localisation+((serpent.taille*2)-1)-1)+20,*(localisation+((serpent.taille*2)-1)),TAILLE_CARRE , TAILLE_CARRE );
+        DessinerRectangle(*(localisation+((serpent.taille*2)-1)-1),*(localisation+((serpent.taille*2)-1)),TAILLE_CARRE , TAILLE_CARRE );
         usleep((int) (serpent.vitesse*CONSTANTE_VITESSE));
 
     }

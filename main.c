@@ -5,7 +5,6 @@
 #include "modele.h"
 
 void main(void){
-    int i = 0;
     struct Jeu jeu = {0,0,0};
     InitialiserGraphique();
     CreerFenetre(20,20,1240,950);
