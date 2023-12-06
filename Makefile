@@ -1,5 +1,5 @@
 # Variable
-CFLAGS = -ansi -pedantic -W 
+CFLAGS = -ansi -pedantic -w 
 OFILES = main.o vue.o modele.o controlleur.o
 EXEC = jouer
 
