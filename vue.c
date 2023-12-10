@@ -10,7 +10,9 @@
 #define X_POMME 60
 #define TAILLE_CARRE 20
 #define CONSTANTE_VITESSE 100000
-
+#define CYCLE 10000UL
+#define POSITION_POINTS_X 100
+#define POSITION_POINTS_Y 900
 
 
 int num_pomme;
@@ -97,122 +99,132 @@ void deplacement_serpent(struct Jeu *jeu){
         int i;
         unsigned char couleur_case = 220;
         int j;
-
+        unsigned long suivant;
+        unsigned long temps = 0;
         *(localisation+0) = 620;
         *(localisation+1) = 400;
+        suivant = Microsecondes+CYCLE;
         
         while (boucle_jeu && serpent.en_vie_bool){
             for(i=(serpent.taille*2)-1;i>2;i-=2){
                 *(localisation+(i-1)) = *(localisation+(i-3));
                 *(localisation+i) = *(localisation+(i-2));
-        }   
+            }   
 
-        affiche_pomme();
-        
-         
-        ChoisirCouleurDessin(CouleurParComposante(0,0,255));
-
-        controle_jeu(&serpent);
-		if (serpent.direction == 'd'){
-            x+=20;
-            *(localisation+0) = x ;
-      
-            
-		}
-        if (serpent.direction == 'g'){
-            x-=20;
-            *(localisation+0)= x ;
-
-         
-		}
-        if (serpent.direction == 'h'){
-            y-=20;
-            *(localisation+1)= y ;
-
-
-  
-		}
-        if (serpent.direction == 'b'){
-            y+=20;
-            *(localisation+1)= y ;
-
-
-    
-        }
-
-
-        if (x<20 || x>1200 || y<20 || y>800 ){
-            serpent.en_vie_bool = 0;
-            ChoisirCouleurDessin(CouleurParComposante(255,0,0));
-            RemplirRectangle(*(localisation+0), *(localisation+1),TAILLE_CARRE,TAILLE_CARRE);
-            game_over();
-            free(localisation);
-            return;
-            
-
-            
-        }
-
-
-
-      for (i=0;i<(serpent.taille*2)-1;i+=2){
-            RemplirRectangle(*(localisation+i),*(localisation+i+1),TAILLE_CARRE, TAILLE_CARRE );
-        }
-
-
-
-
-
-        for(j=0; j<5; j++){
-
-            if (*(localisation+0)== tab_pomme[j][0] && *(localisation+1) == tab_pomme[j][1]){
-                serpent.taille += 1;
-                if (couleur_case == 180){
-                    couleur_case = 256;
-                }
-                else{
-                    couleur_case = 180;
-                }
-                
-                localisation = realloc(localisation,serpent.taille*2*sizeof(int));
-                tab_pomme[j][0] = rand()%X_POMME*20+20;
-                tab_pomme[j][1] = rand()%Y_POMME*20+20;
+            if (Microsecondes()>suivant){
+                suivant = Microsecondes()+CYCLE;
+                temps += 1;
             }
-        }
+            
+            affiche_pomme();
+            
+             
+            ChoisirCouleurDessin(CouleurParComposante(0,0,255));
+
+            controle_jeu(&serpent);
+    		if (serpent.direction == 'd'){
+                x+=20;
+                *(localisation+0) = x ;
+          
+                
+    		}
+            if (serpent.direction == 'g'){
+                x-=20;
+                *(localisation+0)= x ;
+
+             
+    		}
+            if (serpent.direction == 'h'){
+                y-=20;
+                *(localisation+1)= y ;
+
+
+      
+    		}
+            if (serpent.direction == 'b'){
+                y+=20;
+                *(localisation+1)= y ;
 
 
         
+            }
 
-        for (i=2;i<(serpent.taille*2)-1;i+=2){
-            if (*(localisation+0) == *(localisation+i) && *(localisation+1) == *(localisation+i+1)){
+
+            if (x<20 || x>1200 || y<20 || y>800 ){
+                serpent.en_vie_bool = 0;
                 ChoisirCouleurDessin(CouleurParComposante(255,0,0));
                 RemplirRectangle(*(localisation+0), *(localisation+1),TAILLE_CARRE,TAILLE_CARRE);
                 game_over();
                 free(localisation);
                 return;
                 
+
+                
             }
-        }
 
 
-  
+
+          for (i=0;i<(serpent.taille*2)-1;i+=2){
+                RemplirRectangle(*(localisation+i),*(localisation+i+1),TAILLE_CARRE, TAILLE_CARRE );
+            }
 
 
-        if (couleur_case == 220 ){
-            couleur_case = 180;
-        }
-        else{
-            couleur_case = 220;
+
+
+
+            for(j=0; j<5; j++){
+
+                if (*(localisation+0)== tab_pomme[j][0] && *(localisation+1) == tab_pomme[j][1]){
+                    serpent.taille += 1;
+                    if (couleur_case == 180){
+                        couleur_case = 256;
+                    }
+                    else{
+                        couleur_case = 180;
+                    }
+                    
+                    localisation = realloc(localisation,serpent.taille*2*sizeof(int));
+                    jeu->total_point = (char)((int) (jeu->total_point)+1);
+                    tab_pomme[j][0] = rand()%X_POMME*20+20;
+                    tab_pomme[j][1] = rand()%Y_POMME*20+20;
+                }
+            }
+
+
             
-        }
 
-        ChoisirCouleurDessin(CouleurParComposante(0,couleur_case,0));
-        RemplirRectangle(*(localisation+((serpent.taille*2)-1)-1),*(localisation+((serpent.taille*2)-1)),TAILLE_CARRE, TAILLE_CARRE);
+            for (i=2;i<(serpent.taille*2)-1;i+=2){
+                if (*(localisation+0) == *(localisation+i) && *(localisation+1) == *(localisation+i+1)){
+                    ChoisirCouleurDessin(CouleurParComposante(255,0,0));
+                    RemplirRectangle(*(localisation+0), *(localisation+1),TAILLE_CARRE,TAILLE_CARRE);
+                    game_over();
+                    free(localisation);
+                    return;
+                    
+                }
+            }
 
-        ChoisirCouleurDessin(CouleurParComposante(0,0,0));
-        DessinerRectangle(*(localisation+((serpent.taille*2)-1)-1),*(localisation+((serpent.taille*2)-1)),TAILLE_CARRE , TAILLE_CARRE );
-        DessinerRectangle(*(localisation+((serpent.taille*2)-1)-1),*(localisation+((serpent.taille*2)-1)),TAILLE_CARRE , TAILLE_CARRE );
-        usleep((int) (serpent.vitesse*CONSTANTE_VITESSE));
+
+      
+
+
+            if (couleur_case == 220 ){
+                couleur_case = 180;
+            }
+            else{
+                couleur_case = 220;
+                
+            }
+
+            EcrireTexte(POSITION_POINTS_X,POSITION_POINTS_X,&jeu->total_point,2);
+
+            ChoisirCouleurDessin(CouleurParComposante(0,couleur_case,0));
+            RemplirRectangle(*(localisation+((serpent.taille*2)-1)-1),*(localisation+((serpent.taille*2)-1)),TAILLE_CARRE, TAILLE_CARRE);
+
+            ChoisirCouleurDessin(CouleurParComposante(0,0,0));
+            DessinerRectangle(*(localisation+((serpent.taille*2)-1)-1),*(localisation+((serpent.taille*2)-1)),TAILLE_CARRE , TAILLE_CARRE );
+            DessinerRectangle(*(localisation+((serpent.taille*2)-1)-1),*(localisation+((serpent.taille*2)-1)),TAILLE_CARRE , TAILLE_CARRE );
+            usleep((int) (serpent.vitesse*CONSTANTE_VITESSE));
 
     }
 	
