@@ -11,6 +11,7 @@
 #define TAILLE_CARRE 20
 #define CONSTANTE_VITESSE 100000
 #define CYCLE 10000UL
+
 #define POSITION_POINTS_X 100
 #define POSITION_POINTS_Y 900
 
@@ -170,7 +171,12 @@ void deplacement_serpent(struct Jeu *jeu){
 
 
 
+            ChoisirCouleurDessin(CouleurParComposante(0,couleur_case,0));
+            RemplirRectangle(*(localisation+((serpent.taille*2)-1)-1),*(localisation+((serpent.taille*2)-1)),TAILLE_CARRE, TAILLE_CARRE);
 
+            ChoisirCouleurDessin(CouleurParComposante(0,0,0));
+            DessinerRectangle(*(localisation+((serpent.taille*2)-1)-1),*(localisation+((serpent.taille*2)-1)),TAILLE_CARRE , TAILLE_CARRE );
+            DessinerRectangle(*(localisation+((serpent.taille*2)-1)-1),*(localisation+((serpent.taille*2)-1)),TAILLE_CARRE , TAILLE_CARRE );
 
             for(j=0; j<5; j++){
 
@@ -185,6 +191,10 @@ void deplacement_serpent(struct Jeu *jeu){
                     
                     localisation = realloc(localisation,serpent.taille*2*sizeof(int));
                     jeu->total_point = (char)((int) (jeu->total_point)+1);
+                    ChoisirCouleurDessin(CouleurParComposante(100,100,100));
+                    RemplirRectangle(POSITION_POINTS_X,POSITION_POINTS_Y-50,100, 100 );
+                    ChoisirCouleurDessin(CouleurParComposante(100,0,0));
+                    EcrireTexte(POSITION_POINTS_X,POSITION_POINTS_Y,&jeu->total_point,2);
                     tab_pomme[j][0] = rand()%X_POMME*20+20;
                     tab_pomme[j][1] = rand()%Y_POMME*20+20;
                 }
@@ -216,14 +226,10 @@ void deplacement_serpent(struct Jeu *jeu){
                 
             }
 
-            EcrireTexte(POSITION_POINTS_X,POSITION_POINTS_X,&jeu->total_point,2);
+            
 
-            ChoisirCouleurDessin(CouleurParComposante(0,couleur_case,0));
-            RemplirRectangle(*(localisation+((serpent.taille*2)-1)-1),*(localisation+((serpent.taille*2)-1)),TAILLE_CARRE, TAILLE_CARRE);
 
-            ChoisirCouleurDessin(CouleurParComposante(0,0,0));
-            DessinerRectangle(*(localisation+((serpent.taille*2)-1)-1),*(localisation+((serpent.taille*2)-1)),TAILLE_CARRE , TAILLE_CARRE );
-            DessinerRectangle(*(localisation+((serpent.taille*2)-1)-1),*(localisation+((serpent.taille*2)-1)),TAILLE_CARRE , TAILLE_CARRE );
+
             usleep((int) (serpent.vitesse*CONSTANTE_VITESSE));
 
     }

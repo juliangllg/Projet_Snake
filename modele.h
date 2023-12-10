@@ -2,7 +2,7 @@
 #define MODELE_H
 
 struct Jeu{
-	short int total_point;
+	char total_point;
 	short int temps;
 	unsigned char en_pause;
 };
