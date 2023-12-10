@@ -2,7 +2,7 @@
 #define MODELE_H
 
 struct Jeu{
-	char total_point;
+	char* total_point;
 	short int temps;
 	unsigned char en_pause;
 };
@@ -18,7 +18,8 @@ struct Serpent {
 
 
 struct Pomme {
-	char points,couleur,x,y;
+	char points,couleur;
+	int x,y;
 };
 
 struct Liste_pommes{
@@ -34,7 +35,7 @@ void augmenter_vitesse(struct Serpent *serpent,float unite);
 
 void diminuer_vitesse(struct Serpent *serpent,float unite);
 
-void manger_pomme(struct Pomme *pomme,struct Jeu *jeu,struct Serpent *serpent);
+void manger_pomme(struct Pomme *pomme,struct Serpent *serpent);
 
 void mourir(struct Serpent *serpent,struct Jeu *jeu);
 

@@ -96,7 +96,15 @@ void deplacement_serpent(struct Jeu *jeu){
 
         localisation = malloc((serpent.taille*2)*sizeof(int));
 
-        
+        struct Pomme pomme_1 = {1,'r',rand()%X_POMME*20+20,rand()%Y_POMME*20+20};
+        struct Pomme pomme_2 = {1,'r',rand()%X_POMME*20+20,rand()%Y_POMME*20+20};
+        struct Pomme pomme_3 = {1,'r',rand()%X_POMME*20+20,rand()%Y_POMME*20+20};
+        struct Pomme pomme_4 = {1,'r',rand()%X_POMME*20+20,rand()%Y_POMME*20+20};
+        struct Pomme pomme_5 = {1,'r',rand()%X_POMME*20+20,rand()%Y_POMME*20+20};
+
+        struct Pomme tab_pomme[5] = {pomme_1,pomme_2,pomme_3,pomme_4,pomme_5};
+        int rose = ChargerSprite("images/Pomme_rose.png");
+        int rouge = ChargerSprite("images/Pomme_rouge.png");
         int i;
         unsigned char couleur_case = 220;
         int j;
@@ -112,12 +120,7 @@ void deplacement_serpent(struct Jeu *jeu){
                 *(localisation+i) = *(localisation+(i-2));
             }   
 
-            if (Microsecondes()>suivant){
-                suivant = Microsecondes()+CYCLE;
-                temps += 1;
-            }
-            
-            affiche_pomme();
+
             
              
             ChoisirCouleurDessin(CouleurParComposante(0,0,255));
@@ -171,37 +174,30 @@ void deplacement_serpent(struct Jeu *jeu){
 
 
 
-            ChoisirCouleurDessin(CouleurParComposante(0,couleur_case,0));
-            RemplirRectangle(*(localisation+((serpent.taille*2)-1)-1),*(localisation+((serpent.taille*2)-1)),TAILLE_CARRE, TAILLE_CARRE);
-
-            ChoisirCouleurDessin(CouleurParComposante(0,0,0));
-            DessinerRectangle(*(localisation+((serpent.taille*2)-1)-1),*(localisation+((serpent.taille*2)-1)),TAILLE_CARRE , TAILLE_CARRE );
-            DessinerRectangle(*(localisation+((serpent.taille*2)-1)-1),*(localisation+((serpent.taille*2)-1)),TAILLE_CARRE , TAILLE_CARRE );
-
+          
             for(j=0; j<5; j++){
 
-                if (*(localisation+0)== tab_pomme[j][0] && *(localisation+1) == tab_pomme[j][1]){
-                    serpent.taille += 1;
-                    if (couleur_case == 180){
-                        couleur_case = 256;
-                    }
-                    else{
-                        couleur_case = 180;
-                    }
+                if (*(localisation+0)== tab_pomme[j].x && *(localisation+1) == tab_pomme[j].y){
+                    manger_pomme(&tab_pomme[j],&serpent);
+                    jeu->total_point = ((int)(jeu->total_point)+1);
                     
                     localisation = realloc(localisation,serpent.taille*2*sizeof(int));
-                    jeu->total_point = (char)((int) (jeu->total_point)+1);
                     ChoisirCouleurDessin(CouleurParComposante(100,100,100));
                     RemplirRectangle(POSITION_POINTS_X,POSITION_POINTS_Y-50,100, 100 );
                     ChoisirCouleurDessin(CouleurParComposante(100,0,0));
                     EcrireTexte(POSITION_POINTS_X,POSITION_POINTS_Y,&jeu->total_point,2);
-                    tab_pomme[j][0] = rand()%X_POMME*20+20;
-                    tab_pomme[j][1] = rand()%Y_POMME*20+20;
+                    struct Pomme nouvelle_pomme = {1,'r',rand()%X_POMME*20+20,rand()%Y_POMME*20+20};
+                    tab_pomme[j] = nouvelle_pomme;
                 }
             }
 
-
-            
+            for (i=0;i<5;i++){
+                if (tab_pomme[i].couleur == 'r'){
+                    AfficherSprite(rose,tab_pomme[i].x+2,tab_pomme[i].y);
+                }
+                
+            }
+     
 
             for (i=2;i<(serpent.taille*2)-1;i+=2){
                 if (*(localisation+0) == *(localisation+i) && *(localisation+1) == *(localisation+i+1)){
@@ -226,7 +222,13 @@ void deplacement_serpent(struct Jeu *jeu){
                 
             }
 
-            
+            ChoisirCouleurDessin(CouleurParComposante(0,couleur_case,0));
+            RemplirRectangle(*(localisation+((serpent.taille*2)-1)-1),*(localisation+((serpent.taille*2)-1)),TAILLE_CARRE, TAILLE_CARRE);
+
+            ChoisirCouleurDessin(CouleurParComposante(0,0,0));
+            DessinerRectangle(*(localisation+((serpent.taille*2)-1)-1),*(localisation+((serpent.taille*2)-1)),TAILLE_CARRE , TAILLE_CARRE );
+            DessinerRectangle(*(localisation+((serpent.taille*2)-1)-1),*(localisation+((serpent.taille*2)-1)),TAILLE_CARRE , TAILLE_CARRE );
+
 
 
 

@@ -18,14 +18,13 @@ void diminuer_vitesse(struct Serpent *serpent,float unite){
 
 }
 
-void manger_pomme(struct Pomme *pomme,struct Jeu *jeu,struct Serpent *serpent){
-	jeu->total_point += pomme->points;
-	serpent->taille += 1;
+void manger_pomme(struct Pomme *pomme,struct Serpent *serpent){
+	serpent->taille += 2;
 	if (pomme->couleur == 'r'){
-		augmenter_vitesse(serpent,100);
+		augmenter_vitesse(serpent,5);
 	}
 	if (pomme->couleur == 'o'){
-		diminuer_vitesse(serpent,100);
+		diminuer_vitesse(serpent,5);
 	}
 
 }
