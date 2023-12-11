@@ -12,7 +12,7 @@ void controle_jeu(struct Serpent *serpent){
 	
 	while(ToucheEnAttente()){
 		int touche = Touche();
-
+		printf("%ld\n",touche);
 		if (touche == 65362 && serpent->direction != 'b' &&  serpent->direction != 'h' ){
 			serpent->direction = 'h';
 			return;

@@ -188,6 +188,7 @@ void deplacement_serpent(struct Jeu *jeu){
                     EcrireTexte(POSITION_POINTS_X,POSITION_POINTS_Y,&jeu->total_point,2);
                     struct Pomme nouvelle_pomme = {1,'r',rand()%X_POMME*20+20,rand()%Y_POMME*20+20};
                     tab_pomme[j] = nouvelle_pomme;
+             
                 }
             }
 
