@@ -4,7 +4,7 @@
 
 
 void augmenter_vitesse(struct Serpent *serpent,float unite){
-	if (serpent->vitesse > 0.5){
+	if (serpent->vitesse > 1){
 		serpent->vitesse -= unite/1000;  
 	}
 
@@ -12,7 +12,7 @@ void augmenter_vitesse(struct Serpent *serpent,float unite){
 
 void diminuer_vitesse(struct Serpent *serpent,float unite){
 
-		if (serpent->vitesse < 4.5){
+		if (serpent->vitesse < 3.5){
 		serpent->vitesse += unite/1000;   
 	}
 
@@ -21,10 +21,10 @@ void diminuer_vitesse(struct Serpent *serpent,float unite){
 void manger_pomme(struct Pomme *pomme,struct Serpent *serpent){
 	serpent->taille += 2;
 	if (pomme->couleur == 'r'){
-		augmenter_vitesse(serpent,80);
+		augmenter_vitesse(serpent,115);
 	}
-	if (pomme->couleur == 'o'){
-		diminuer_vitesse(serpent,5);
+	if (pomme->couleur == 'j'){
+		diminuer_vitesse(serpent,75);
 	}
 
 }

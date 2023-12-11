@@ -103,8 +103,11 @@ void deplacement_serpent(struct Jeu *jeu){
         struct Pomme pomme_5 = {1,'r',rand()%X_POMME*20+20,rand()%Y_POMME*20+20};
 
         struct Pomme tab_pomme[5] = {pomme_1,pomme_2,pomme_3,pomme_4,pomme_5};
-        int rose = ChargerSprite("images/Pomme_rose.png");
-        int rouge = ChargerSprite("images/Pomme_rouge.png");
+        unsigned char couleur_nouvelle_pomme,couleur_pomme_random;
+        int pomme_rose = ChargerSprite("images/Pomme_rose.png");
+        int pomme_rouge = ChargerSprite("images/Pomme_rouge.png");
+        int pomme_bleu = ChargerSprite("images/Pomme_jaune.png");
+        int pomme_jaune = ChargerSprite("images/Pomme_bleu.png");
         int i;
         unsigned char couleur_case = 220;
         int j;
@@ -186,7 +189,18 @@ void deplacement_serpent(struct Jeu *jeu){
                     RemplirRectangle(POSITION_POINTS_X,POSITION_POINTS_Y-50,100, 100 );
                     ChoisirCouleurDessin(CouleurParComposante(100,0,0));
                     EcrireTexte(POSITION_POINTS_X,POSITION_POINTS_Y,&jeu->total_point,2);
-                    struct Pomme nouvelle_pomme = {1,'r',rand()%X_POMME*20+20,rand()%Y_POMME*20+20};
+                    
+                    couleur_pomme_random = rand()%3;
+                    if (couleur_pomme_random == 0){
+                        couleur_nouvelle_pomme = 'r';
+                    }
+                    if (couleur_pomme_random == 1){
+                        couleur_nouvelle_pomme = 'b';
+                    }
+                    if (couleur_pomme_random == 2){
+                        couleur_nouvelle_pomme = 'j';
+                    }
+                    struct Pomme nouvelle_pomme = {1,couleur_nouvelle_pomme,rand()%X_POMME*20+20,rand()%Y_POMME*20+20};
                     tab_pomme[j] = nouvelle_pomme;
              
                 }
@@ -194,7 +208,13 @@ void deplacement_serpent(struct Jeu *jeu){
 
             for (i=0;i<5;i++){
                 if (tab_pomme[i].couleur == 'r'){
-                    AfficherSprite(rose,tab_pomme[i].x+2,tab_pomme[i].y);
+                    AfficherSprite(pomme_rose,tab_pomme[i].x+2,tab_pomme[i].y);
+                }
+                if (tab_pomme[i].couleur == 'j'){
+                    AfficherSprite(pomme_jaune,tab_pomme[i].x+2,tab_pomme[i].y);
+                }
+                if (tab_pomme[i].couleur == 'b'){
+                    AfficherSprite(pomme_bleu,tab_pomme[i].x+2,tab_pomme[i].y);
                 }
                 
             }
