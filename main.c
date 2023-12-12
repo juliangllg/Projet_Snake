@@ -5,7 +5,7 @@
 #include "modele.h"
 
 void main(void){
-    struct Jeu jeu = {'0',0,0};
+    struct Jeu jeu = {0,0,0};
     InitialiserGraphique();
     CreerFenetre(20,20,1240,950);
     fond();

@@ -34,15 +34,6 @@ void mourir(struct Serpent *serpent,struct Jeu *jeu){
 	jeu->en_pause = 1;
 }
 
-int collision(struct Serpent *serpent,struct Jeu *jeu,struct Obstacle *obstacle){
-	if ((obstacle->x == serpent->x_head) || obstacle->y == serpent->y_head) {
-		mourir(serpent,jeu);
-		return 1;
-	}
-	else {
-		return 0;
-	}
-}
 
 void update_timer(unsigned long int start) {
 	int secondes = ((Microsecondes() - start) / DELTA);
@@ -63,18 +54,4 @@ unsigned long int start_timer(unsigned long int start) {
 	return start;
 }
 
-/*
-void creer_terrain(){
-	int tableau[60][40];
- 	int i;
-	int j;
-	int nb = 1;
-	for (i=0;i<=60;i++){
-		for (j=0;j<=40;i++){
-		tableau[i][j] = nb;
-		nb += 1;
-		}
-	}
-	return tableau
-}
-*/
+
