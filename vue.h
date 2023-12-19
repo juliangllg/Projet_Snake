@@ -5,7 +5,7 @@ void cadrillage (void);
 
 void fond (void);
 
-void game_over(void);
+int game_over( int *, struct Serpent *serpent);
 
 void affiche_pomme();
 

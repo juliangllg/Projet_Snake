@@ -12,7 +12,6 @@ void main(void){
     cadrillage();
     ChoisirCouleurDessin(CouleurParComposante(255,0,0));
     deplacement_serpent(&jeu);
-    game_over();
     sleep(2);
     Touche();
     FermerGraphique();
