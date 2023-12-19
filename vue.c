@@ -1,17 +1,18 @@
+#include<graph.h>
+#include <stdlib.h>
+#include <stdio.h>
+
 #include"controlleur.h"
 #include"modele.h"
-#include <stdlib.h>
-#include<graph.h>
-#include <time.h>
 #include "vue.h"
-#include <stdio.h>
+
 
 #define Y_POMME 40
 #define X_POMME 60
 #define TAILLE_CARRE 20
 #define CONSTANTE_VITESSE 100000
 
-
+#define TAILLE_SERPENT_DEBUT 10
 #define POSITION_POINTS_X 100
 #define POSITION_POINTS_Y 900
 
@@ -58,20 +59,22 @@ void fond (void){
 
 int game_over(int *localisation,struct Serpent *serpent){
     int i;
+
+    /* Si le serpent sort du terrain */ 
     if ((*(localisation+0)<20 || *(localisation+0)>1200 || *(localisation+1)<20 || *(localisation+1)>800 )){
         ChoisirCouleurDessin(CouleurParComposante(255,0,0));
         RemplirRectangle(*(localisation+0), *(localisation+1),TAILLE_CARRE,TAILLE_CARRE);
         free(localisation);
-        serpent->en_vie_bool = 0;
         EcrireTexte(620,875, "Game Over", 2);
         return 0;  
     }
-    for (i=2;i<(serpent->taille*2)-1;i+=2){
+
+    /* Si la tête du serpent touche sa queue */ 
+    for (i=2;i<(serpent->taille*2)-2;i+=2){
         if (*(localisation+0) == *(localisation+i) && *(localisation+1) == *(localisation+i+1)){
             ChoisirCouleurDessin(CouleurParComposante(255,0,0));
             RemplirRectangle(*(localisation+0), *(localisation+1),TAILLE_CARRE,TAILLE_CARRE);
             free(localisation);
-            serpent->en_vie_bool = 0;
             EcrireTexte(620,875, "Game Over", 2);
             return 0;  
         }
@@ -105,43 +108,49 @@ void attendre(int microsecondes){
 
 
 void deplacement_serpent(struct Jeu *jeu){ 
-	int x = 620; int y = 400;
-        struct Serpent serpent = {11,
+        struct Serpent serpent = {TAILLE_SERPENT_DEBUT+1,
                                   1.25,
                                   1,
-                                  CouleurParComposante(0,0,255),
                                   610,410,
-                                  'd'}; /*Taille,Vitesse*/
+                                  'd'};
 
-        struct Pomme pomme = {1,'r',0,0};
-        int* localisation = NULL;
 
-        localisation = malloc((serpent.taille*2)*sizeof(int));
+        /* Pommes */
 
-		/* Création des 5 premieres pommes */ 
-	
         struct Pomme pomme_1 = {1,'r',rand()%X_POMME*20+20,rand()%Y_POMME*20+20};
         struct Pomme pomme_2 = {1,'r',rand()%X_POMME*20+20,rand()%Y_POMME*20+20};
         struct Pomme pomme_3 = {1,'r',rand()%X_POMME*20+20,rand()%Y_POMME*20+20};
         struct Pomme pomme_4 = {1,'r',rand()%X_POMME*20+20,rand()%Y_POMME*20+20};
         struct Pomme pomme_5 = {1,'r',rand()%X_POMME*20+20,rand()%Y_POMME*20+20};
-
         struct Pomme tab_pomme[5] = {pomme_1,pomme_2,pomme_3,pomme_4,pomme_5};
-	
-	    srand(time(NULL));
-        unsigned char couleur_nouvelle_pomme,couleur_pomme_random;
+
+        unsigned char couleur_pomme[3] = {'r','j','b'};
         int pomme_rose = ChargerSprite("images/Pomme_rose.png");
         int pomme_rouge = ChargerSprite("images/Pomme_rouge.png");
         int pomme_bleu = ChargerSprite("images/Pomme_jaune.png");
         int pomme_jaune = ChargerSprite("images/Pomme_bleu.png");
-        int i;
-        unsigned char couleur_case = 220;
-        int j;
-		char affiche_score[4];
-        unsigned long temps = 0;
+
+
+
+        /* Serpent */
+        int* localisation = NULL;
+        localisation = malloc((serpent.taille*2)*sizeof(int));
         *(localisation+0) = 620;
         *(localisation+1) = 400;
-        
+
+        int serpent_rouge= 0;
+        int serpent_vert = 0;
+        int serpent_bleu = 155;
+        unsigned char couleur_case = (TAILLE_SERPENT_DEBUT%2 == 0) ? 180:220 ;
+
+
+        char affiche_score[4];
+        unsigned long temps = 0;
+        int i;
+        int j;
+        srand(time(NULL));
+
+
         while ( serpent.en_vie_bool){
 			
 			/* Déplacement du serpent dans le tableau localisation */
@@ -177,11 +186,11 @@ void deplacement_serpent(struct Jeu *jeu){
 
 			
 		
-            int en_vie = game_over(localisation, &serpent);
+            
             
 
-
-		  ChoisirCouleurDessin(CouleurParComposante(0,0,255));
+        /* Dessin du serpent */
+		  ChoisirCouleurDessin(CouleurParComposante(serpent_rouge,serpent_vert,serpent_bleu));
           for (i=0;i<(serpent.taille*2)-1;i+=2){
                 RemplirRectangle(*(localisation+i),*(localisation+i+1),TAILLE_CARRE, TAILLE_CARRE );
             }
@@ -193,34 +202,34 @@ void deplacement_serpent(struct Jeu *jeu){
             for(j=0; j<5; j++){
 
                 if (*(localisation+0)== tab_pomme[j].x && *(localisation+1) == tab_pomme[j].y){
-                    manger_pomme(&tab_pomme[j],&serpent);
-                    jeu->total_point += 1;
-					
+                    manger_pomme(&tab_pomme[j],&serpent,jeu);
+                    localisation = realloc(localisation,serpent.taille*2*sizeof(int));
+
+                    /* Générer des couleurs aléatoires pour le serpent en évitant quelle soit trop verte */
+                    do {
+                        serpent_rouge = rand()%255;
+                        serpent_vert = rand()%255;
+                        serpent_bleu = rand()%255;
+                    } while ((serpent_rouge +serpent_bleu)<serpent_vert);
+
 					/* Convertion du score */ 
                  	sprintf(affiche_score, "%d", jeu->total_point);
 					
-                    localisation = realloc(localisation,serpent.taille*2*sizeof(int));
+                    
                     ChoisirCouleurDessin(CouleurParComposante(100,100,100));
                     RemplirRectangle(POSITION_POINTS_X,POSITION_POINTS_Y-50,100,100);
                     ChoisirCouleurDessin(CouleurParComposante(200,0,0));
                     EcrireTexte(POSITION_POINTS_X,POSITION_POINTS_Y,affiche_score,2);
                     
-                    couleur_pomme_random = rand()%3;
-                    if (couleur_pomme_random == 0){
-                        couleur_nouvelle_pomme = 'r';
-                    }
-                    if (couleur_pomme_random == 1){
-                        couleur_nouvelle_pomme = 'b';
-                    }
-                    if (couleur_pomme_random == 2){
-                        couleur_nouvelle_pomme = 'j';
-                    }
-                    struct Pomme nouvelle_pomme = {1,couleur_nouvelle_pomme,rand()%X_POMME*20+20,rand()%Y_POMME*20+20};
+                    struct Pomme nouvelle_pomme = {1,couleur_pomme[rand()%3],rand()%X_POMME*20+20,rand()%Y_POMME*20+20};
                     tab_pomme[j] = nouvelle_pomme;
              
                 }
             }
 
+            if (serpent.taille == 2400 +1){
+                printf("Gagné\n");
+            }
             for (i=0;i<5;i++){
                 if (tab_pomme[i].couleur == 'r'){
                     AfficherSprite(pomme_rose,tab_pomme[i].x+2,tab_pomme[i].y);
@@ -234,30 +243,16 @@ void deplacement_serpent(struct Jeu *jeu){
             }
      
 
-			/* Gestion collision du serpent avec sa queue */
-			
-           
+            couleur_case = (couleur_case == 220) ? 180:220 ;
 
-
-      
-
-
-            if (couleur_case == 220 ){
-                couleur_case = 180;
-            }
-            else{
-                couleur_case = 220;
-                
-            }
-
-			
+			serpent.en_vie_bool = game_over(localisation, &serpent);
             ChoisirCouleurDessin(CouleurParComposante(0,couleur_case,0));
             RemplirRectangle(*(localisation+((serpent.taille*2)-1)-1),*(localisation+((serpent.taille*2)-1)),TAILLE_CARRE, TAILLE_CARRE);
             ChoisirCouleurDessin(CouleurParComposante(0,0,0));
             DessinerRectangle(*(localisation+((serpent.taille*2)-1)-1),*(localisation+((serpent.taille*2)-1)),TAILLE_CARRE , TAILLE_CARRE );
             DessinerRectangle(*(localisation+((serpent.taille*2)-1)-1),*(localisation+((serpent.taille*2)-1)),TAILLE_CARRE , TAILLE_CARRE );
 
-
+            
 			attendre((int) (serpent.vitesse*CONSTANTE_VITESSE));
 
     }

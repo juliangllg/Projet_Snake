@@ -10,7 +10,6 @@ void main(void){
     CreerFenetre(20,20,1240,950);
     fond();
     cadrillage();
-    ChoisirCouleurDessin(CouleurParComposante(255,0,0));
     deplacement_serpent(&jeu);
     sleep(2);
     Touche();

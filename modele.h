@@ -11,7 +11,6 @@ struct Serpent {
 	short int taille;
 	float vitesse;
 	unsigned char en_vie_bool;
-	char couleur;
 	short int x_head,y_head;
 	char direction;
 };
@@ -35,7 +34,7 @@ void augmenter_vitesse(struct Serpent *serpent,float unite);
 
 void diminuer_vitesse(struct Serpent *serpent,float unite);
 
-void manger_pomme(struct Pomme *pomme,struct Serpent *serpent);
+void manger_pomme(struct Pomme *pomme,struct Serpent *serpent,struct Jeu *jeu);
 
 void mourir(struct Serpent *serpent,struct Jeu *jeu);
 
