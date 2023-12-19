@@ -106,7 +106,7 @@ void attendre(int microsecondes){
 
 void deplacement_serpent(struct Jeu *jeu){ 
 	int x = 620; int y = 400;
-        struct Serpent serpent = {4,
+        struct Serpent serpent = {11,
                                   1.25,
                                   1,
                                   CouleurParComposante(0,0,255),
