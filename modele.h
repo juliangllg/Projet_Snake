@@ -5,6 +5,8 @@ struct Jeu{
 	int total_point;
 	short int temps;
 	unsigned char en_pause;
+	short int fenetre_longeur,fenetre_hauteur;
+	unsigned char en_jeu;
 };
 
 struct Serpent {
@@ -39,4 +41,8 @@ void manger_pomme(struct Pomme *pomme,struct Serpent *serpent,struct Jeu *jeu);
 void mourir(struct Serpent *serpent,struct Jeu *jeu);
 
 int collision(struct Serpent *serpent,struct Jeu *jeu,struct Obstacle *obstacle);
+
+
+
+
 #endif /* MODELE_H */

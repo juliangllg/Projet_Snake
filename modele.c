@@ -20,7 +20,7 @@ void diminuer_vitesse(struct Serpent *serpent,float unite){
 
 void manger_pomme(struct Pomme *pomme,struct Serpent *serpent,struct Jeu *jeu){
 	serpent->taille += 2;
-	jeu->total_point += 1;
+	jeu->total_point += 5;
 	if (pomme->couleur == 'r'){
 		augmenter_vitesse(serpent,115);
 	}
@@ -30,10 +30,6 @@ void manger_pomme(struct Pomme *pomme,struct Serpent *serpent,struct Jeu *jeu){
 
 }
 
-void mourir(struct Serpent *serpent,struct Jeu *jeu){
-	serpent->en_vie_bool = 0;
-	jeu->en_pause = 1;
-}
 
 
 void update_timer(unsigned long int start) {

@@ -3,15 +3,17 @@
 #include <stdlib.h>
 #include "vue.h"
 #include "modele.h"
+#define LONGEUR 950
+#define HAUTEUR 1240
 
 void main(void){
-    struct Jeu jeu = {0,0,0};
+    struct Jeu jeu = {0,0,0,LONGEUR,HAUTEUR,1};
     InitialiserGraphique();
-    CreerFenetre(20,20,1240,950);
-    fond();
-    cadrillage();
-    deplacement_serpent(&jeu);
-    sleep(2);
-    Touche();
-    FermerGraphique();
+	CreerFenetre(20,20,jeu.fenetre_hauteur,jeu.fenetre_longeur);
+	fond();
+	cadrillage();
+	
+	deplacement_serpent(&jeu);
+	FermerGraphique();
+	
 }

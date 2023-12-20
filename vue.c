@@ -21,6 +21,8 @@ int num_pomme;
 int tab_pomme[5][2];
 
 
+
+
 /*Fais un cadrillage 60*40 (1200*800) pour le terrein de jeu.*/
 void cadrillage (void){
     int x=20; int y = 20;int j = 0; int i = 0;
@@ -57,6 +59,8 @@ void fond (void){
     EffacerEcran(CouleurParComposante(100,100,100));
 }
 
+
+
 int game_over(int *localisation,struct Serpent *serpent){
     int i;
 
@@ -79,7 +83,7 @@ int game_over(int *localisation,struct Serpent *serpent){
             return 0;  
         }
     }
-    return 1;
+    return serpent->en_vie_bool;
 }
 
 
@@ -164,7 +168,8 @@ void deplacement_serpent(struct Jeu *jeu){
             
             
 
-            controle_jeu(&serpent);
+             controle_jeu(&serpent,&jeu);
+
 			
     		if (serpent.direction == 'd'){
                 *(localisation+0) += 20 ;
@@ -227,7 +232,7 @@ void deplacement_serpent(struct Jeu *jeu){
                 }
             }
 
-            if (serpent.taille == 2400 +1){
+            if (serpent.taille == 2400 + 1){
                 printf("Gagné\n");
             }
             for (i=0;i<5;i++){
@@ -256,5 +261,6 @@ void deplacement_serpent(struct Jeu *jeu){
 			attendre((int) (serpent.vitesse*CONSTANTE_VITESSE));
 
     }
+	free(localisation);
 	
 }

@@ -8,40 +8,44 @@
 #define ESCAPE 65307
 
 
-void controle_jeu(struct Serpent *serpent){
+void controle_jeu(struct Serpent *serpent,struct Jeu *jeu){
 	
 	while(ToucheEnAttente()){
-
-
 		int touche = Touche();
-		if (touche == 65362 && serpent->direction != 'b' &&  serpent->direction != 'h' ){
-			serpent->direction = 'h';
-			return;
 
 
-		}
-		if (touche == 65363 && serpent->direction != 'g' &&  serpent->direction != 'd'){
-			serpent->direction = 'd';
-			return;
 
-
-		}
-		if (touche == 65361 && serpent->direction != 'd'&&  serpent->direction != 'g'){
-			serpent->direction = 'g';
-			return;
 			
+			if (touche == 65362 && serpent->direction != 'b' &&  serpent->direction != 'h' ){
+				serpent->direction = 'h';
+				return;
+			}
 
-		}
-		if (touche == 65364 && serpent->direction != 'h'&&  serpent->direction != 'b'){
-			serpent->direction = 'b';
-			return;
+			if (touche == 65363 && serpent->direction != 'g' &&  serpent->direction != 'd'){
+				serpent->direction = 'd';
+				return;
+			}
+
+			if (touche == 65361 && serpent->direction != 'd'&&  serpent->direction != 'g'){
+				serpent->direction = 'g';
+				return;
+			}
+
+			if (touche == 65364 && serpent->direction != 'h'&&  serpent->direction != 'b'){
+				serpent->direction = 'b';
+				return;
+			}
+
+			if (touche == 65307){
+				serpent->en_vie_bool = 0;
+				return;
+			}
+
 			
-
-		}
+		
 		
 	}
 }
 	
 	
-
 

@@ -13,5 +13,5 @@ void initialisation(void);
 
 void deplacement_serpent(struct Jeu *jeu);
 
-
+void menu_principal();
 #endif /* VUE_H */
