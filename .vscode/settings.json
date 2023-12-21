@@ -1,6 +1,9 @@
 {
     "C_Cpp.errorSquiggles": "disabled",
     "files.associations": {
-        "time.h": "c"
+        "time.h": "c",
+        "graph.h": "c",
+        "modele.h": "c",
+        "controlleur.h": "c"
     }
 }

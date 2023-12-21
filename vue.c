@@ -261,6 +261,6 @@ void deplacement_serpent(struct Jeu *jeu){
 			attendre((int) (serpent.vitesse*CONSTANTE_VITESSE));
 
     }
-	free(localisation);
+	
 	
 }
