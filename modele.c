@@ -1,6 +1,6 @@
 #define TAILLE_MAX_SERPENT 50 
 #include "modele.h"
-#define DELTA 1000000L
+
 
 
 void augmenter_vitesse(struct Serpent *serpent,float unite){

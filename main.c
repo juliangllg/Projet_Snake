@@ -14,6 +14,7 @@ void main(void){
 	cadrillage();
 	
 	deplacement_serpent(&jeu);
+    Touche();
 	FermerGraphique();
 	
 }

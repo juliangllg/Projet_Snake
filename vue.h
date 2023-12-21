@@ -14,4 +14,6 @@ void initialisation(void);
 void deplacement_serpent(struct Jeu *jeu);
 
 void menu_principal();
+
+int apparait(const int* tab_serpent,struct Serpent serpent,int x,int y);
 #endif /* VUE_H */

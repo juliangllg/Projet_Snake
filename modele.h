@@ -15,6 +15,7 @@ struct Serpent {
 	unsigned char en_vie_bool;
 	short int x_head,y_head;
 	char direction;
+	int * localisation;
 };
 
 

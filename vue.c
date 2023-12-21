@@ -112,13 +112,22 @@ void attendre(int microsecondes){
 	}
 }
 
+int apparait(const int* tab_serpent,struct Serpent serpent,int x,int y){
+    int i;
+    for (i=0;i<(serpent.taille*2)-2;i++){
+        if (*(tab_serpent+i) == x && *(tab_serpent+i+1) == y){
+            return 0;
+        }
+    }
+    return 1;
+}
 /*Boucle principal du jeu*/
 void deplacement_serpent(struct Jeu *jeu){ 
         struct Serpent serpent = {TAILLE_SERPENT_DEBUT+1,
                                   1.25,
                                   1,
                                   610,410,
-                                  'd'};
+                                  'd',NULL};
 
 
         /* Pommes */
@@ -228,8 +237,17 @@ void deplacement_serpent(struct Jeu *jeu){
                     ChoisirCouleurDessin(CouleurParComposante(200,0,0));
                     EcrireTexte(POSITION_POINTS_X,POSITION_POINTS_Y,affiche_score,2);
                     
-                    struct Pomme nouvelle_pomme = {1,couleur_pomme[rand()%3],rand()%X_POMME*20+20,rand()%Y_POMME*20+20};
-                    tab_pomme[j] = nouvelle_pomme;
+
+                    int x = rand()%X_POMME*20+20;
+                    int y = rand()%Y_POMME*20+20;
+                    do{
+                        x = rand()%X_POMME*20+20;
+                        y = rand()%Y_POMME*20+20;
+                        struct Pomme nouvelle_pomme = {1,couleur_pomme[rand()%3],x,y};
+                        tab_pomme[j] = nouvelle_pomme;
+                    }while(apparait(localisation,serpent,x,y) != 1);
+                    
+                    
              
                 }
             }
