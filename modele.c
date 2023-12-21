@@ -32,23 +32,4 @@ void manger_pomme(struct Pomme *pomme,struct Serpent *serpent,struct Jeu *jeu){
 
 
 
-void update_timer(unsigned long int start) {
-	int secondes = ((Microsecondes() - start) / DELTA);
-	int minutes = 0;
-	char buf[100];
-		
-	while (secondes >= 60) {
-		minutes += 1;
-		secondes -= 60;
-	}
-	ChoisirCouleurDessin(CouleurParNom("white"));
-	snprintf(buf, 100, "Temps : %02d:%02d", minutes, secondes);
-	EcrireTexte(20, 20, buf, 1);
-}
-unsigned long int start_timer(unsigned long int start) {
-	start = Microsecondes() - start;
-	update_timer(start);
-	return start;
-}
-
 

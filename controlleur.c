@@ -13,7 +13,7 @@ void controle_jeu(struct Serpent *serpent,struct Jeu *jeu){
 	while(ToucheEnAttente()){
 		int touche = Touche();
 
-			printf("%d", touche);
+			
 
 			/*Touche fleche du haut change la direction du serpent*/
 			if (touche == 65362 && serpent->direction != 'b' &&  serpent->direction != 'h' ){
