@@ -87,7 +87,7 @@ int game_over(int *localisation,struct Serpent *serpent){
 }
 
 
-
+/*Affiche les sprites des pomme*/
 void affiche_pomme(){   
     int i;
     int rose = ChargerSprite("images/Pomme_rose.png");
@@ -96,6 +96,7 @@ void affiche_pomme(){
         }
 }
 
+/*Charge les sprites des pommes*/
 void ChargerSpritePomme(void){
         int pomme_rose = ChargerSprite("images/Pomme_rose.png");
         int pomme_rouge = ChargerSprite("images/Pomme_rouge.png");
@@ -103,6 +104,7 @@ void ChargerSpritePomme(void){
         int pomme_jaune = ChargerSprite("images/Pomme_bleu.png");
 }
 
+/*fait une pause entre chaque deplacement du seprent*/
 void attendre(int microsecondes){
 	unsigned long attente = Microsecondes() + microsecondes;
 	while (Microsecondes() < attente){
@@ -110,7 +112,7 @@ void attendre(int microsecondes){
 	}
 }
 
-
+/*Boucle principal du jeu*/
 void deplacement_serpent(struct Jeu *jeu){ 
         struct Serpent serpent = {TAILLE_SERPENT_DEBUT+1,
                                   1.25,
@@ -154,7 +156,7 @@ void deplacement_serpent(struct Jeu *jeu){
         int j;
         srand(time(NULL));
 
-
+        /*Boucle principal du jeu*/
         while ( serpent.en_vie_bool){
 			
 			/* Déplacement du serpent dans le tableau localisation */
