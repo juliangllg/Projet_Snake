@@ -16,6 +16,7 @@
 #define POSITION_POINTS_X 100
 #define POSITION_POINTS_Y 900
 
+#define CYCLE 10000L
 
 int num_pomme;
 int tab_pomme[5][2];
@@ -121,6 +122,38 @@ int apparait(const int* tab_serpent,struct Serpent serpent,int x,int y){
     }
     return 1;
 }
+
+
+void Update_Timer(int minute,int seconde, char timer[]){
+    sprintf(timer,6,"%02d:%02d",minute,seconde);
+    ChoisirCouleurDessin(CouleurParComposante(100,100,100));
+    RemplirRectangle(20,735,200,75);
+    ChoisirCouleurDessin(CouleurParComposante(0,0,0));
+    EcrireTexte(50,50,"time: ",2);
+    EcrireTexte(50,50,timer,2);
+    printf("dfg\n");
+
+}
+
+void Timer(int* minute,int* seconde,unsigned long int* suivant,int* seconde_actuel,int* old_seconde,char timer){
+    if (Microsecondes()> *suivant){
+        *suivant = Microsecondes()+CYCLE;
+        *seconde_actuel = (*suivant/1000000)%10;
+        if (seconde_actuel != old_seconde){
+            *old_seconde == *seconde_actuel;
+            if(*seconde == 59){
+                *minute=*minute+1;
+                *seconde=0;
+                Update_Timer(*minute,*seconde,timer);
+            }else{
+                *seconde = *seconde+1;
+                Update_Timer(*minute,*seconde,timer);
+            }
+        }
+    }
+
+}
+
 /*Boucle principal du jeu*/
 void deplacement_serpent(struct Jeu *jeu){ 
         struct Serpent serpent = {TAILLE_SERPENT_DEBUT+1,
@@ -165,9 +198,27 @@ void deplacement_serpent(struct Jeu *jeu){
         int j;
         srand(time(NULL));
 
+
+        int minute_np = 0;
+        int seconde_np = 0;
+        int suivant_np = 0;
+        int seconde_actuel_np = 0;
+        int old_seconde_np = 0;
+
+        int* minute = &minute_np;
+        int* seconde = &seconde_np;
+        unsigned long int* suivant = &suivant_np;
+        int* seconde_actuel = &seconde_actuel_np;
+        int* old_seconde = &old_seconde_np;
+        char timer[6];
         /*Boucle principal du jeu*/
         while ( serpent.en_vie_bool){
 			
+            /*
+            Timer(minute,seconde,suivant,seconde_actuel,old_seconde,timer);
+
+            */
+            
 			/* Déplacement du serpent dans le tableau localisation */
             for(i=(serpent.taille*2)-1;i>2;i-=2){
                 *(localisation+(i-1)) = *(localisation+(i-3));
@@ -276,7 +327,6 @@ void deplacement_serpent(struct Jeu *jeu){
             ChoisirCouleurDessin(CouleurParComposante(0,0,0));
             DessinerRectangle(*(localisation+((serpent.taille*2)-1)-1),*(localisation+((serpent.taille*2)-1)),TAILLE_CARRE , TAILLE_CARRE );
             DessinerRectangle(*(localisation+((serpent.taille*2)-1)-1),*(localisation+((serpent.taille*2)-1)),TAILLE_CARRE , TAILLE_CARRE );
-
             
 			attendre((int) (serpent.vitesse*CONSTANTE_VITESSE));
 
