@@ -20,5 +20,9 @@ vue.o : vue.c vue.h
 main.o : main.c vue.h modele.h
 	gcc -c main.c $(CFLAGS) -lgraph
 
+run:
+	./$(EXEC)
+	
+	
 clear:
 	rm -rf *.o 
