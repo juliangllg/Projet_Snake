@@ -1,6 +1,8 @@
 #ifndef VUE_H
 #define VUE_H
 
+
+
 void cadrillage (void);
 
 void fond (void);

@@ -1,6 +1,8 @@
 #ifndef MODELE_H
 #define MODELE_H
 
+#define TAILLE_CARRE 20
+
 struct Jeu{
 	int total_point;
 	short int temps;
@@ -16,6 +18,7 @@ struct Serpent {
 	short int x_head,y_head;
 	char direction;
 	int * localisation;
+	unsigned char rouge,vert,bleu;
 };
 
 

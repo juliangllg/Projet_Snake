@@ -8,7 +8,7 @@
 #define ESCAPE 65307
 
 
-void controle_jeu(struct Serpent *serpent,struct Jeu *jeu){
+void controle_jeu(struct Serpent *serpent,int* localisation){
 	
 	while(ToucheEnAttente()){
 		int touche = Touche();
@@ -48,7 +48,14 @@ void controle_jeu(struct Serpent *serpent,struct Jeu *jeu){
 			/* Touche espace met pause*/
 			if (touche == 32){
 				int pause=0;
+
+            	ChoisirCouleurDessin(CouleurParComposante(-serpent->rouge,-serpent->vert,-serpent->bleu));
+
+            	RemplirRectangle(*(localisation),*(localisation+1),TAILLE_CARRE,TAILLE_CARRE);
+
+            	ChoisirCouleurDessin(CouleurParComposante(0,0,0));
 				EcrireTexte(620,875, "Pause", 2);
+
 				while(pause != 32){
 					pause = Touche();
 					if (pause == 65307){

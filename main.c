@@ -15,6 +15,9 @@ void main(void){
 	
 	deplacement_serpent(&jeu);
 
+    ChoisirCouleurDessin(CouleurParComposante(0,0,0));
+    EcrireTexte(50,875, "Appuyez sur une touche pour quitter", 2);
+    Touche();
 	FermerGraphique();
 	
 }

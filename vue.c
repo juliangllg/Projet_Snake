@@ -145,6 +145,7 @@ void Timer(int* minute, int* seconde, unsigned long int* suivant, int* seconde_a
 
             *old_seconde = *seconde_actuel;
 
+
             if (*seconde == 59) {
                 *minute = *minute + 1;
                 *seconde = 0;
@@ -165,11 +166,12 @@ void deplacement_serpent(struct Jeu *jeu){
                                   1.25,
                                   1,
                                   610,410,
-                                  'd',NULL};
+                                  'd',NULL,0,0,200};
 
 
         /* Pommes */
 
+        printf("%hhu\n",serpent.bleu);
         struct Pomme pomme_1 = {1,'r',rand()%X_POMME*20+20,rand()%Y_POMME*20+20};
         struct Pomme pomme_2 = {1,'r',rand()%X_POMME*20+20,rand()%Y_POMME*20+20};
         struct Pomme pomme_3 = {1,'r',rand()%X_POMME*20+20,rand()%Y_POMME*20+20};
@@ -190,10 +192,6 @@ void deplacement_serpent(struct Jeu *jeu){
         localisation = malloc((serpent.taille*2)*sizeof(int));
         *(localisation+0) = 620;
         *(localisation+1) = 400;
-
-        int serpent_rouge= 0;
-        int serpent_vert = 0;
-        int serpent_bleu = 155;
         unsigned char couleur_case = (TAILLE_SERPENT_DEBUT%2 == 0) ? 180:220 ;
 
 
@@ -205,7 +203,7 @@ void deplacement_serpent(struct Jeu *jeu){
 
 
         int minute_np = 0;
-        int seconde_np = 0;
+        int seconde_np = -1;
         int suivant_np = 0;
         int seconde_actuel_np = 0;
         int old_seconde_np = 0;
@@ -235,7 +233,8 @@ void deplacement_serpent(struct Jeu *jeu){
             
             
 
-             controle_jeu(&serpent,&jeu);
+             controle_jeu(&serpent,localisation);
+
 
 			
     		if (serpent.direction == 'd'){
@@ -261,11 +260,12 @@ void deplacement_serpent(struct Jeu *jeu){
             
             
 
-        /* Dessin du serpent */
-		  ChoisirCouleurDessin(CouleurParComposante(serpent_rouge,serpent_vert,serpent_bleu));
-          for (i=0;i<(serpent.taille*2)-1;i+=2){
+             /* Dessin du serpent */
+		      ChoisirCouleurDessin(CouleurParComposante(serpent.rouge,serpent.vert,serpent.bleu));
+            for (i=0;i<(serpent.taille*2)-1;i+=2){
                 RemplirRectangle(*(localisation+i),*(localisation+i+1),TAILLE_CARRE, TAILLE_CARRE );
             }
+
 
 
 
@@ -279,10 +279,10 @@ void deplacement_serpent(struct Jeu *jeu){
 
                     /* Générer des couleurs aléatoires pour le serpent en évitant quelle soit trop verte */
                     do {
-                        serpent_rouge = rand()%255;
-                        serpent_vert = rand()%255;
-                        serpent_bleu = rand()%255;
-                    } while ((serpent_rouge +serpent_bleu)<serpent_vert);
+                        serpent.rouge = rand()%255;
+                        serpent.vert = rand()%255;
+                        serpent.bleu = rand()%255;
+                    } while ((serpent.rouge + serpent.bleu)<serpent.vert);
 
 					/* Convertion du score */ 
                  	sprintf(affiche_score, "%d", jeu->total_point);
