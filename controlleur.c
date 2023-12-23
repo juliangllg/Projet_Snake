@@ -51,11 +51,17 @@ void controle_jeu(struct Serpent *serpent,struct Jeu *jeu){
 				EcrireTexte(620,875, "Pause", 2);
 				while(pause != 32){
 					pause = Touche();
+					if (pause == 65307){
+						serpent->en_vie_bool = 0;
+					return;
+
+					}
+
 				}
 				ChoisirCouleurDessin(CouleurParComposante(100,100,100));
 				RemplirRectangle(620,840,150,50);
 			}
-
+			
 			
 			
 		

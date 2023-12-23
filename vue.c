@@ -16,7 +16,7 @@
 #define POSITION_POINTS_X 100
 #define POSITION_POINTS_Y 900
 
-#define CYCLE 10000L
+#define CYCLE 1000000L
 
 int num_pomme;
 int tab_pomme[5][2];
@@ -124,34 +124,39 @@ int apparait(const int* tab_serpent,struct Serpent serpent,int x,int y){
 }
 
 
-void Update_Timer(int minute,int seconde, char timer[]){
-    sprintf(timer,6,"%02d:%02d",minute,seconde);
-    ChoisirCouleurDessin(CouleurParComposante(100,100,100));
-    RemplirRectangle(20,735,200,75);
-    ChoisirCouleurDessin(CouleurParComposante(0,0,0));
-    EcrireTexte(50,50,"time: ",2);
-    EcrireTexte(50,50,timer,2);
-    printf("dfg\n");
+void Update_Timer(int minute, int seconde, char timer[]) {
+
+    snprintf(timer, 6, "%02d:%02d", minute, seconde);
+
+    ChoisirCouleurDessin(CouleurParComposante(100, 100, 100));
+    RemplirRectangle(1100, 850, 100, 100);
+    ChoisirCouleurDessin(CouleurParComposante(0, 0, 0));
+    EcrireTexte(1100, 900, timer, 2);
 
 }
 
-void Timer(int* minute,int* seconde,unsigned long int* suivant,int* seconde_actuel,int* old_seconde,char timer){
-    if (Microsecondes()> *suivant){
-        *suivant = Microsecondes()+CYCLE;
-        *seconde_actuel = (*suivant/1000000)%10;
-        if (seconde_actuel != old_seconde){
-            *old_seconde == *seconde_actuel;
-            if(*seconde == 59){
-                *minute=*minute+1;
-                *seconde=0;
-                Update_Timer(*minute,*seconde,timer);
-            }else{
-                *seconde = *seconde+1;
-                Update_Timer(*minute,*seconde,timer);
+void Timer(int* minute, int* seconde, unsigned long int* suivant, int* seconde_actuel, int* old_seconde, char timer[]) {
+    if (Microsecondes() > *suivant) {
+        *suivant = Microsecondes() + CYCLE;
+
+        *seconde_actuel = (*suivant / 1000000) % 60;
+
+        if (*seconde_actuel != *old_seconde) {
+
+            *old_seconde = *seconde_actuel;
+
+            if (*seconde == 59) {
+                *minute = *minute + 1;
+                *seconde = 0;
+
+                Update_Timer(*minute, *seconde, timer);
+            } else {
+                *seconde = *seconde + 1;
+
+                Update_Timer(*minute, *seconde, timer);
             }
         }
     }
-
 }
 
 /*Boucle principal du jeu*/
@@ -214,10 +219,10 @@ void deplacement_serpent(struct Jeu *jeu){
         /*Boucle principal du jeu*/
         while ( serpent.en_vie_bool){
 			
-            /*
+            
             Timer(minute,seconde,suivant,seconde_actuel,old_seconde,timer);
 
-            */
+            
             
 			/* Déplacement du serpent dans le tableau localisation */
             for(i=(serpent.taille*2)-1;i>2;i-=2){
@@ -304,8 +309,13 @@ void deplacement_serpent(struct Jeu *jeu){
             }
 
             if (serpent.taille == 2400 + 1){
-                printf("Gagné\n");
+                ChoisirCouleurDessin(CouleurParComposante(255,0,0));
+                RemplirRectangle(*(localisation+0), *(localisation+1),TAILLE_CARRE,TAILLE_CARRE);
+                free(localisation);
+                EcrireTexte(620,875, "You", 2);
             }
+
+
             for (i=0;i<5;i++){
                 if (tab_pomme[i].couleur == 'r'){
                     AfficherSprite(pomme_rose,tab_pomme[i].x+2,tab_pomme[i].y);
