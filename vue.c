@@ -104,7 +104,7 @@ int apparait(const int* tab_serpent,struct Serpent serpent,int x,int y){
     return 1;
 }
 
-
+/*permet d'afficher le timer*/
 void affiche_timer(int minute, int seconde, char timer[]) {
 
     snprintf(timer, 6, "%02d:%02d", minute, seconde);
@@ -116,6 +116,7 @@ void affiche_timer(int minute, int seconde, char timer[]) {
 
 }
 
+/*permet de faire un timer*/
 void Timer(int* minute, int* seconde, unsigned long int* suivant, int* seconde_actuel, int* old_seconde, char timer[]) {
     if (Microsecondes() > *suivant) {
         *suivant = Microsecondes() + CYCLE;

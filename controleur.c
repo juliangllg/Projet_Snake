@@ -8,7 +8,7 @@
 #define ECHAPE 65307
 #define ESPACE 32
 
-
+/*permet de changer lma direction du serpent quand on actionnne une touche*/
 void controle_jeu(struct Serpent *serpent,int* localisation){
 	
 	while(ToucheEnAttente()){
