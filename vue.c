@@ -2,14 +2,13 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include"controlleur.h"
+#include"controleur.h"
 #include"modele.h"
 #include "vue.h"
 
 
 #define Y_POMME 40
 #define X_POMME 60
-#define TAILLE_CARRE 20
 #define CONSTANTE_VITESSE 100000
 
 #define TAILLE_SERPENT_DEBUT 10
@@ -18,8 +17,6 @@
 
 #define CYCLE 1000000L
 
-int num_pomme;
-int tab_pomme[5][2];
 
 
 
@@ -70,7 +67,7 @@ int game_over(int *localisation,struct Serpent *serpent){
         ChoisirCouleurDessin(CouleurParComposante(255,0,0));
         RemplirRectangle(*(localisation+0), *(localisation+1),TAILLE_CARRE,TAILLE_CARRE);
         free(localisation);
-        EcrireTexte(620,875, "Game Over", 2);
+        EcrireTexte(620,400, "Game Over", 2);
         return 0;  
     }
 
@@ -80,7 +77,7 @@ int game_over(int *localisation,struct Serpent *serpent){
             ChoisirCouleurDessin(CouleurParComposante(255,0,0));
             RemplirRectangle(*(localisation+0), *(localisation+1),TAILLE_CARRE,TAILLE_CARRE);
             free(localisation);
-            EcrireTexte(620,875, "Game Over", 2);
+            EcrireTexte(620,400, "Game Over", 2);
             return 0;  
         }
     }
@@ -88,22 +85,6 @@ int game_over(int *localisation,struct Serpent *serpent){
 }
 
 
-/*Affiche les sprites des pomme*/
-void affiche_pomme(){   
-    int i;
-    int rose = ChargerSprite("images/Pomme_rose.png");
-    for(i = 0; i<5; i++){
-        AfficherSprite(rose,tab_pomme[i][0],tab_pomme[i][1]);
-        }
-}
-
-/*Charge les sprites des pommes*/
-void ChargerSpritePomme(void){
-        int pomme_rose = ChargerSprite("images/Pomme_rose.png");
-        int pomme_rouge = ChargerSprite("images/Pomme_rouge.png");
-        int pomme_bleu = ChargerSprite("images/Pomme_jaune.png");
-        int pomme_jaune = ChargerSprite("images/Pomme_bleu.png");
-}
 
 /*fait une pause entre chaque deplacement du seprent*/
 void attendre(int microsecondes){
@@ -124,7 +105,7 @@ int apparait(const int* tab_serpent,struct Serpent serpent,int x,int y){
 }
 
 
-void Update_Timer(int minute, int seconde, char timer[]) {
+void affiche_timer(int minute, int seconde, char timer[]) {
 
     snprintf(timer, 6, "%02d:%02d", minute, seconde);
 
@@ -150,11 +131,11 @@ void Timer(int* minute, int* seconde, unsigned long int* suivant, int* seconde_a
                 *minute = *minute + 1;
                 *seconde = 0;
 
-                Update_Timer(*minute, *seconde, timer);
+                affiche_timer(*minute, *seconde, timer);
             } else {
                 *seconde = *seconde + 1;
 
-                Update_Timer(*minute, *seconde, timer);
+                affiche_timer(*minute, *seconde, timer);
             }
         }
     }
@@ -162,6 +143,8 @@ void Timer(int* minute, int* seconde, unsigned long int* suivant, int* seconde_a
 
 /*Boucle principal du jeu*/
 void deplacement_serpent(struct Jeu *jeu){ 
+
+
         struct Serpent serpent = {TAILLE_SERPENT_DEBUT+1,
                                   1.25,
                                   1,
@@ -171,7 +154,8 @@ void deplacement_serpent(struct Jeu *jeu){
 
         /* Pommes */
 
-        printf("%hhu\n",serpent.bleu);
+
+
         struct Pomme pomme_1 = {1,'r',rand()%X_POMME*20+20,rand()%Y_POMME*20+20};
         struct Pomme pomme_2 = {1,'r',rand()%X_POMME*20+20,rand()%Y_POMME*20+20};
         struct Pomme pomme_3 = {1,'r',rand()%X_POMME*20+20,rand()%Y_POMME*20+20};

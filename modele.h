@@ -27,13 +27,6 @@ struct Pomme {
 	int x,y;
 };
 
-struct Liste_pommes{
-	int liste[5];
-};
-
-struct Obstacle{
-	short int x,y;
-};
 
 
 void augmenter_vitesse(struct Serpent *serpent,float unite);
@@ -42,9 +35,7 @@ void diminuer_vitesse(struct Serpent *serpent,float unite);
 
 void manger_pomme(struct Pomme *pomme,struct Serpent *serpent,struct Jeu *jeu);
 
-void mourir(struct Serpent *serpent,struct Jeu *jeu);
 
-int collision(struct Serpent *serpent,struct Jeu *jeu,struct Obstacle *obstacle);
 
 
 
